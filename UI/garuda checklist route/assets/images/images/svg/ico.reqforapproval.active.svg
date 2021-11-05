@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="21px" viewBox="0 0 22 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>ico.reqforapproval.active</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="menu.reqforqpproval.selected" transform="translate(-32.000000, -9.000000)">
+            <g id="ico.reqforapproval.active" transform="translate(33.000000, 10.000000)">
+                <g id="Group-9">
+                    <path d="M2.53968254,0 L11.4285714,0 C12.8311994,-2.57658572e-16 13.968254,1.1370546 13.968254,2.53968254 L13.968254,15.6483516 C13.968254,17.0509796 12.8311994,18.1880342 11.4285714,18.1880342 L2.53968254,18.1880342 C1.1370546,18.1880342 1.0599508e-15,17.0509796 8.8817842e-16,15.6483516 L0,2.53968254 C-1.71772381e-16,1.1370546 1.1370546,-1.86430638e-16 2.53968254,-4.4408921e-16 Z M10.7936508,3.24786325 L3.0695079,3.24786325 L10.7936508,3.24786325 Z M6.98412698,7.14529915 L3.07301597,7.14529915 L6.98412698,7.14529915 Z M9.52380952,11.042735 L3.07301597,11.042735 L9.52380952,11.042735 Z" id="Path" stroke="#0D9B70" stroke-width="1.42857143"></path>
+                    <polyline id="Path-4" stroke="#FFFFFF" stroke-width="4.51499118" stroke-linecap="round" stroke-linejoin="round" points="8.89756944 13.9630027 12.8528715 17.518978 18.5805225 11.3177703"></polyline>
+                    <polyline id="Path-4" stroke="#0D9B70" stroke-width="2.25749559" stroke-linecap="round" stroke-linejoin="round" points="8.89756944 13.9630027 12.8528715 17.518978 18.5805225 11.3177703"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

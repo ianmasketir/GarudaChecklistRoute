@@ -1,0 +1,595 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="../assets/images/favicon-garuda-indonesia.ico">
+		<link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+		<title>Checklist Activity Management</title>
+		<style>
+			.header__logo__title__description {
+				font-size: 16px;
+				color: #158b99;
+				font-weight: bold;
+				position: relative;
+				bottom: 10px;
+			}
+			body a {
+				cursor: pointer;
+				text-decoration: none;
+			}
+			.general-menu__ul__li__a .fa-file ~ i {
+				font-size: 10px;
+				position: absolute;
+				top: 15px;
+				left: 25px;
+			}
+			.task-submitted-section__title, .task-received-section__title, .section-title { color: #333; margin-bottom: 5px; }
+			.task-submitted-section__gauge-info, .task-received-section__gauge-info, .section-wrapper {
+				border: 1px solid #ccc;
+				border-radius: 8px;
+				background: #fff;
+				padding: 10px;
+			}
+			.chart-section, .doc-summary-counter,
+			.task-submitted-section__gauge-info__gauge__info, .task-received-section__gauge-info__gauge__info { display: flex; }
+			canvas { margin: 10px 0; }
+			.doc-summary-counter>div { text-align: center; cursor: pointer; }
+			.doc-summary-counter>div:hover { background: #f1f1f1; }
+			.task-submitted-section {
+				width: 45%;
+				margin-right: 50px;
+			}
+			.task-received-section {
+				width: 50%;
+			}
+			.task-submitted-section__gauge-info__commercialChecked *,
+			.task-received-section__gauge-info__commercialChecked * { color: rgba(126, 198, 84, .8); }
+			.task-submitted-section__gauge-info__commercialUnchecked *,
+			.task-received-section__gauge-info__commercialUnchecked * { color: rgba(220, 72, 92, .8); }
+			.task-submitted-section__gauge-info__operationalChecked *,
+			.task-received-section__gauge-info__operationalChecked * { color: rgba(126, 198, 84, 1); }
+			.task-submitted-section__gauge-info__operationalUnchecked *,
+			.task-received-section__gauge-info__operationalUnchecked * { color: rgba(220, 72, 92, 1); }
+			.label_info { color: #9b9b9b; font-size: 12px; }
+			.doc-summary-counter>div div[class*='task-'] { font-size: 25px; }
+			.task-submitted-section__gauge-info__gauge__info__count, .task-received-section__gauge-info__gauge__info__count {
+				color: #555;
+				font-size: 40px;
+				padding-right: 10px;
+				text-align: left;
+				word-break: break-word;
+				line-height: 1;
+			}
+			.task-submitted-section__gauge-info__gauge__info__name,
+			.task-received-section__gauge-info__gauge__info__name {
+				color: #999;
+				font-size: 26px;
+				padding-top: 10px;
+				line-height: 1;
+			}
+			a[class$='go-to-my-activity'] {
+				height: 100%;
+				font-size: 40px;
+				color: #158b99;
+			}
+			a[class$='go-to-my-activity']:hover { color: #106f7a; }
+			a.task-submitted-section__go-to-my-activity { margin-left: 185px; }
+			a.task-received-section__go-to-my-activity { margin-left: 232px; }
+			.task-received-section__task-info__info-row__item {
+				width: 33%;
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			.announcement-section { margin-top: 20px; }
+			.section-body { height: 150px; overflow: auto; }
+			.section-wrapper { padding: 5px 0; }
+			.section-wrapper .item {
+				position: relative;
+				min-height: 35px;
+				border-bottom: 1px solid #ccc;
+				padding: 0 10px 5px;
+			}
+			.section-wrapper .item:last-child { padding-bottom: 0; border-bottom: none; }
+			.name-initial {
+				position: absolute;
+				background: #158b99;
+				color: #fff;
+				border-radius: 50%;
+				width: 35px;
+				height: 35px;
+				text-align: center;
+				font-size: 25px;
+				top: 3px;
+			}
+			.name-initial span { position: relative; top: 5px; }
+		</style>
+		<style>
+			body { margin: 0; font-family: sans-serif; }
+			.container { display: flex; height: 100%; background: #f1f1f1; }
+			.container .container { display: block; }
+			.header {
+				border-right: 1px solid #ccc;
+				height: 100%;
+				width: 17.5%;
+				padding: 10px;
+				position: fixed;
+				background: #fff;
+			}
+			.header .logo { text-align: center; }
+			.header__logo__menu-container__createNew-container {
+				background: #158b99;
+				color: #fff;
+				border-radius: 100px;
+				margin: 10px 40px 0;
+				display: flex;
+				align-items: center;
+				cursor: pointer;
+			}
+			.header__logo__menu-container__createNew-container:hover { background: #106f7a; }
+			.header__logo__menu-container__createNew-container__btn-createNew {
+				width: 100%;
+				padding: 10px 20px;
+			}
+			.header__logo__menu-container__createNew-container__btn-createNew i { padding-right: 10px; }
+			.header .menu-container {
+				margin: 20px -10px 0;
+				overflow: auto;
+				max-height: 360px;
+				position: relative;
+				border-bottom: 1px solid #ccc;
+			}
+			div[class$='-menu__title'] { padding-left: 20px; }
+			div[class$='-menu__title'] span {
+				font-size: 10px;
+				font-family: "Open-Sans Regular","Segoe UI Regular","Helvetica",Helvetica,sans-serif;
+				font-weight: bold;
+				color: #aaa;
+				letter-spacing: 1px;
+			}
+			div[class$='-menu'] ul {
+				margin: 0;
+				margin-bottom: 10px;
+				padding: 0;
+			}
+			li[class$='-menu__ul__li'] {
+				list-style-type: none;
+				overflow: hidden;
+				height: auto;
+				position: relative;
+				font-size: 1.2rem;
+			}
+			li[class$='-menu__ul__li']:hover a { background: #f9f9f9; }
+			a[class*='-menu__ul__li__a'] {
+				padding-left: 20px;
+				font-size: 14px;
+				font-weight: 700;
+				color: #6b7785;
+				position: relative;
+				display: flex;
+				height: 32px;
+				align-items: center;
+			}
+			a[class*='-menu__ul__li__a'] span { padding-left: 5px; }
+			.menu-active { color: #127d89 !important; }
+			ul li .menu-active:before {
+				content: "";
+				background: #158b99;
+				width: 5px;
+				height: 50px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.user-name-container { margin-top: 3px; display: flex; }
+			.menu .name-initial { position: relative; }
+			.user-name-container .name {
+				height: 100%;
+				margin-left: 10px;
+				margin-top: 7px;
+				font-size: 12px;
+				/*color: #6b7785;*/
+				font-weight: bold;
+			}
+			.user-login-name { display: inline-block; }
+			.name-label {
+				color: #9b9b9b;
+				font-size: 9px;
+				margin-bottom: 2px;
+			}
+			.toggle-user-information {
+				border: 2px solid #158b99;
+				padding: 0 2px;
+				border-radius: 4px;
+				margin-left: 66px;
+			}
+			.toggle-user-information:hover { background: #f1f1f1; }
+			.toggle-user-information i { color: #158b99; }
+			a.toggle-user-information:hover i { color: #106f7a; }
+			.toggle-user-information.more .fa-caret-down, .toggle-user-information.less .fa-caret-up { display: none; }
+			.user-information.expanded {
+				background: #fff;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 255px;
+				height: 100%;
+			}
+			.user-information.expanded .user-name-container { padding-left: 10px; }
+			.user-information-all { display: none; }
+			.user-information.expanded .user-information-all {
+				display: block;
+				border-top: 1px solid #ccc;
+				position: absolute;
+				top: 45px;
+				width: 259px;
+			}
+			.user-information.expanded .user-information-header {
+				width: 100%;
+				text-align: center;
+				font-size: 50px;
+				margin-top: 20px;
+				color: #158b99;
+			}
+			.user-information.expanded .header__logo__title__description { bottom: auto; margin-top: 5px; }
+			.user-information.expanded .user-information-wrapper {
+				padding-left: 20px;
+				padding-top: 10px;
+				color: #6b7785;
+			}
+			.user-information.expanded .user-information-wrapper .label { width: 37%; font-size: 12px; }
+			.user-information.expanded .user-information-wrapper .data-label { font-size: 14px; text-decoration: underline; color: #158b99; }
+			.user-information.expanded .user-information-wrapper:last-child .label { width: 39%; }
+			.user-information.expanded .name-initial, .user-information.expanded .user-login-name { display: none; }
+			.user-information.expanded .name {
+				display: flex;
+				align-items: center;
+				margin-top: 15px;
+			}
+			.user-information.expanded .name-label {
+				margin-bottom: 0;
+				font-size: 12px;
+				margin-left: 80px;
+				margin-right: 70px;
+			}
+			.user-information.expanded .toggle-user-information { margin-left: 0; }
+			.user-information.expanded .user-logout { display: block; }
+			.user-logout {
+				display: none;
+				position: fixed;
+				bottom: 0;
+				padding: 7px 9px;
+				border-top: 1px solid #ccc;
+				width: 100%;
+				max-width: 240px;
+			}
+			.user-logout-wrapper {
+				background: #158b99;
+				width: 150px;
+				height: 32px;
+				border-radius: 88px;
+				margin: 0 45px;
+				text-align: center;
+				font-size: 12px;
+				letter-spacing: 1.8px;
+				display: flex;
+				align-items: center;
+			}
+			.btn-logout { padding: 10px 45px; color: #fff; }
+			.body {
+				max-height: 100%;
+				width: 81%;
+				background: #f1f1f1;
+				font-size: 1rem;
+				position: fixed;
+				right: 0;
+			}
+			.overlayLoader {
+				width: 80%;
+				height: 100%;
+				background-color: #f9f9f9;
+				z-index: 5;
+				position: fixed;
+				visibility: hidden;
+			}
+			.overlayLoader.enabled {
+				visibility: visible;
+			}
+			.overlayLoader .loadMessage {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 100px;
+				height: 100px;
+				overflow: hidden;
+				border-radius: 10px;
+			}
+			.overlayLoader.enabled .loadMessage:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -150px;
+				width: 50px;
+				height: 100%;
+				background: rgba(255,255,255,.13);
+				background: linear-gradient(
+					to right, rgba(255, 255, 255, .13) 0%, rgba(255, 255, 255, .13) 77%, rgba(255, 255, 255, .5) 92%, rgba(255, 255, 255, 0) 100%);
+				transform: skewX(-30deg);
+				/*transition: 1s;*/
+				animation: shine 3s ease-in-out  infinite;
+				animation-fill-mode: forwards;
+			}
+			/*.overlayLoader.enabled .loadMessage:before{
+				left: 150px;
+			}*/
+			.overlayLoader .loadMessage img { width: 100%; }
+			.loadMessage span { color: transparent; }
+			
+			.page-header {
+				width: 100%;
+				border-bottom: 1px solid #ccc;
+				background: #fff;
+				max-height: 42px;
+				color: #333;
+				font-weight: bold;
+				font-size: 18px;
+				margin-bottom: 20px;
+			}
+			.page-header-wrapper { padding: 10px 20px; }
+			.form { overflow: auto; max-height: 590px; }
+			.row { margin: 20px; margin-top: 0; }
+			.row .panel {
+				border: 1px solid #ccc;
+				background: #fff;
+				height: 100%;
+				min-height: 450px;
+				border-radius: 10px;
+				padding: 20px;
+			}
+			.row.row-execButtons {
+				position: fixed;
+				bottom: 0;
+				border-top: 1px solid #ccc;
+				background: #fff;
+				width: 100%;
+				max-width: 1100px;
+				height: 46px;
+				margin: 0;
+			}
+			.row-execButtons .btn-wrapper { width: 40px; }
+		</style>
+		<style>
+		@keyframes shine{
+		  10% {
+			opacity: 1;
+			top: 0;
+			left: -150px;
+			transition-property: left, top, opacity;
+			transition-duration: .7s, .7s, .15s;
+			transition-timing-function: ease;
+		  }
+		  100% {
+			opacity: 0;
+			top: 0;
+			left: 150px;
+			transition-property: left, top, opacity;
+		  }
+		}
+		</style>
+		<script type="text/javascript" src="../assets/scripts/jquery.min.js"></script>
+		<script type="text/javascript" src="../assets/scripts/Chart.bundle.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="logo">
+					<div class="header__logo__title">
+						<img src="../assets/images/logo-garuda-indonesia.jpg" width="240px" onmousedown="return false" />
+						<div class="header__logo__title__description">Checklist Activity Management</div>
+					</div>
+					<div class="header__logo__menu-container">
+						<div class="header__logo__menu-container__createNew-container">
+							<a class="header__logo__menu-container__createNew-container__btn-createNew">
+								<i class="fa fa-plus"></i>Create New
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="menu">
+					<div class="menu-container">
+						<div class="general-menu">
+							<div class="general-menu__title">
+								<span class="general-menu__title__content">Main</span>
+							</div>
+							<ul class="general-menu__ul">
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a menu-active" href="Dashboard.html">
+										<i class="fas fa-tachometer-alt"></i>
+										<span class="general-menu__ul__li__a__content">Dashboard</span>
+									</a>
+								</li>
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a">
+										<i class="fas fa-search"></i>
+										<span class="general-menu__ul__li__a__content">Search</span>
+									</a>
+								</li>
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a">
+										<i class="far fa-file"></i><i class="fas fa-long-arrow-alt-right"></i>
+										<span class="general-menu__ul__li__a__content">My Route Activity Request</span>
+									</a>
+								</li>
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a">
+										<i class="far fa-file"></i><i class="fas fa-long-arrow-alt-left"></i>
+										<span class="general-menu__ul__li__a__content">Route For My Review</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="specific-menu">
+							<div class="specific-menu__title">
+								<span class="specific-menu__title__content">Application</span>
+							</div>
+							<ul class="specific-menu__ul">
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="fas fa-cog"></i>
+										<span class="specific-menu__ul__li__a__content">Configuration Setting</span>
+									</a>
+								</li>
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="far fa-envelope"></i>
+										<span class="specific-menu__ul__li__a__content">Email Template</span>
+									</a>
+								</li>
+							</ul>
+							<div class="specific-menu__title">
+								<span class="specific-menu__title__content">Tools</span>
+							</div>
+							<ul class="specific-menu__ul">
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="fas fa-bars"></i>
+										<span class="specific-menu__ul__li__a__content">Menu</span>
+									</a>
+								</li>
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="fas fa-user-cog"></i>
+										<span class="specific-menu__ul__li__a__content">Role</span>
+									</a>
+								</li>
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="far fa-address-card"></i>
+										<span class="specific-menu__ul__li__a__content">Menu Role</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="user-information">
+						<div class="user-name-container">
+							<div class="name-initial">
+								<span>T</span>
+							</div>
+							<div class="name">
+								<div class="name-label">My Profile</div>
+								<div class="user-login-name">Taufiq Fitriansyah</div>
+								<a class="toggle-user-information more">
+									<i class="fas fa-caret-down"></i>
+									<i class="fas fa-caret-up"></i>
+								</a>
+							</div>
+						</div>
+						<div class="user-information-all">
+							<div class="user-information-header">
+								<div class="user-information-header__logo">
+									<i class="fas fa-user-circle"></i>
+								</div>
+								<div class="header__logo__title__description">User Information</div>
+							</div>
+							<div class="user-information-wrapper">
+								<div class="label">Name:</div>
+								<div class="data-label">Taufiq Fitriansyah</div>
+							</div>
+							<div class="user-information-wrapper">
+								<div class="label">NIK:</div>
+								<div class="data-label">1601273481</div>
+							</div>
+							<div class="user-information-wrapper">
+								<div class="label">Department:</div>
+								<div class="data-label">IT</div>
+							</div>
+						</div>
+						<div class="user-logout">
+							<div class="user-logout-wrapper">
+								<a class="btn-logout" href="../login/Login.html">LOGOUT</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="body">
+				<div class="overlayLoader enabled">
+					<div class="loaderDiv">
+						<div class="loadMessage">
+							<img src="../assets/images/icon-garuda-indonesia.png" onmousedown="return false">
+							<span>Loading</span>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<!--Form area-->
+					<div class="runtime-content">
+						<div class="runtime-form">
+							<div class="form">
+								<div class="page-header">
+									<div class="page-header-wrapper">
+										<span class="page-header-text">Announcement</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="view">
+										<div class="innerpanel">
+											<div class="panel">
+												<div class="panel-header"></div>
+												<div class="panel-body">
+													<div class="panel-body-m">
+														<div class="panel-body-m-c">
+															<div class="panel-body-wrapper">
+																<div class="panel-body-header">
+																	
+																</div>
+																<div class="panel-body-content"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row row-execButtons">
+									<div class="wrapper">
+										<div class="btn-wrapper">
+											<a class="btn-close">Close</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--selesai Form area-->
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$(".general-menu__ul__li").click(function(){
+				$("a").removeClass("menu-active");
+				$(this).find($(".general-menu__ul__li__a")).addClass("menu-active");
+			});
+			$(".specific-menu__ul__li").click(function(){
+				$("a").removeClass("menu-active");
+				$(this).find($(".specific-menu__ul__li__a")).addClass("menu-active");
+			});
+			$(".toggle-user-information").click(function(){
+				$(this).toggleClass("more").toggleClass("less");
+				$(".user-information").toggleClass("expanded");
+			});
+			finishLoading();
+			
+			function finishLoading() {
+				setTimeout( function() {
+					$(".overlayLoader").removeClass("enabled");
+				}, 2000);
+			}
+		</script>
+		<script>
+			
+		</script>
+	</body>
+</html>

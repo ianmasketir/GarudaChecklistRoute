@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>ico-moa</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="200" height="200"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/product/moa">
+            <g id="Group-3">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask"></g>
+                <g id="Group" mask="url(#mask-2)" stroke="#0D9B70" stroke-linecap="round" stroke-linejoin="round" stroke-width="8.33333333">
+                    <g transform="translate(83.333333, 116.666667)" id="Path-4">
+                        <polyline points="54.6520802 47.5987949 58.0446192 50.576308 105.89635 1.0658141e-14"></polyline>
+                        <path d="M25,21.5741989 L34.9162798,30.2773716"></path>
+                        <polyline points="4.12114787e-13 21.5741989 33.0446192 50.576308 80.8963496 1.15463195e-14"></polyline>
+                    </g>
+                </g>
+                <g id="Group-2" mask="url(#mask-2)" stroke="#0D9B70" stroke-linecap="round" stroke-linejoin="round" stroke-width="8.33333333">
+                    <g transform="translate(16.666667, 16.666667)">
+                        <path d="M49.7965495,144.256592 L16.6666667,144.256592 C7.46192084,144.256592 -1.47160173e-12,136.794671 -1.56674673e-12,127.589925 L-1.39976919e-12,16.6666667 C-1.40089645e-12,7.46192084 7.46192084,-9.77334624e-11 16.6666667,-9.77351533e-11 L101.944987,-1.01767483e-10 C111.149733,-1.01760999e-10 118.611654,7.46192084 118.611654,16.6666667 L118.611654,83.3333333" id="Path-2"></path>
+                        <path d="M92.5160071,32.4717554 L26.3097834,32.4717554" id="Path"></path>
+                        <path d="M70.2596029,64.307735 L26.3398523,64.307735" id="Path"></path>
+                        <path d="M59.8632987,96.1437145 L26.3398523,96.1437145" id="Path"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

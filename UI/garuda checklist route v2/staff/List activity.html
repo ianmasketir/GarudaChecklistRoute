@@ -1,0 +1,973 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="../assets/images/favicon-garuda-indonesia.ico">
+		<link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+		<title>Checklist Activity Management</title>
+		<style>
+			.header__logo__title__description {
+				font-size: 16px;
+				color: #158b99;
+				font-weight: bold;
+				position: relative;
+				bottom: 10px;
+			}
+			body a {
+				cursor: pointer;
+				text-decoration: none;
+			}
+			.general-menu__ul__li__a .fa-file ~ i {
+				font-size: 10px;
+				position: absolute;
+				top: 15px;
+				left: 25px;
+			}
+			.name-initial {
+				position: absolute;
+				background: #158b99;
+				color: #fff;
+				border-radius: 50%;
+				width: 35px;
+				height: 35px;
+				text-align: center;
+				font-size: 25px;
+				top: 3px;
+			}
+			.name-initial span { position: relative; top: 5px; }
+			.rotate { animation: rotation 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+			.filter-container { position: relative; }
+			.searchDDL { width: 17%; }
+			.filterTxt { width: 30%; }
+			.quicksearch.filter { display: flex; }
+			.quicksearch.filter>div { margin-right: 10px; }
+			.quicksearch .input-control-m-c {
+				border: 1px solid #ccc;
+				border-radius: 100px;
+				padding: 5px 10px;
+				background: #fff;
+			}
+			.advancedsearch.filter {
+				position: absolute;
+				bottom: 5px;
+				right: 10px;
+			}
+			.advancedsearch.filter a { font-size: 14px;	 }
+			.advancedsearch.filter a:hover { color: ; }
+			.input-control { border: none; outline: none; width: 100%; height: 100%; }
+			.apply-filter, .advancedsearch.filter a { height: 100%; color: #106f7a; margin: 6px 0; }
+			.apply-filter:hover, .advancedsearch.filter a:hover { color: #63712a; }
+			.grid-content-table {
+				width: 100%;
+				border: 1px solid #ccc;
+				border-radius: 8px;
+				background: #fff;
+				margin-top: 10px;
+				border-spacing: 0;
+				overflow: hidden;
+			}
+			.grid-content-table th { background: #f1f1f1; }
+			.grid-content-table tr { cursor: pointer; }
+			.grid-content-table tr.hidden { display: none; }
+			.grid-content-table tr:hover td, table.grid-content-table tr.selected td { background: #ebf8e9; }
+			th {
+				color: #158b99;
+				text-transform: uppercase;
+			}
+			th:first-child, td:first-child { padding-left: 10px; }
+			th:last-child, td:last-child { padding-right: 10px; }
+			td, th {
+				text-align: left;
+				padding: 10px;
+				border-top: 1px solid #ccc;
+				font-size: 11px;
+				width: 25%;
+			}
+			th { border-top: none; }
+			td { color: #444; }
+			tr:last-child td { border-bottom: none; }
+			td.empty {
+				font-style: italic;
+				color: #999;
+				text-align: center;
+				font-size: 12px;
+			}
+			.grid-footer { margin-top: 10px; }
+			.grid-footer .toolbar { text-align: center; }
+			.grid-footer .toolbar-wrapper { display: inline-flex; }
+			.grid-footer a { margin: 4px; font-size: 13px; }
+			.grid-footer a.disabled { color: #999; }
+			.input-control.text-input.small .input-control-m-c { border: 1px solid #ccc; border-radius: 10px; }
+			.input-control.text-input.small input {
+				width: 45px;
+				border-radius: 10px;
+				text-align: center;
+				color: #636e7e;
+				line-height: 0;
+			}
+			
+			.popup-overlay {
+				position: absolute;
+				top: 0;
+				background: rgba(0,0,0,.4);
+				width: 100%;
+				height: 100%;
+				display: none;
+			}
+			.popup-overlay.enabled, .popup-overlay.enabled ~ .popupManager { display: block; }
+			.popupManager {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: 330px;
+				height: 267px;
+				padding: 20px;
+				background: #fff;
+				border-radius: 10px;
+				display: none;
+			}
+			.popup-header {
+				display: flex;
+				border-bottom: 1px solid #ccc;
+				font-size: 18px;
+			}
+			.popup-header .title { width: 100%; }
+			.popup-header a:hover { color: #888; }
+			.popup-body { margin-top: 15px; }
+			.popup-body .row { margin: 0; display: flex; margin-bottom: 10px; }
+			.popup-body .row:first-child { margin-bottom: 15px; }
+			.popup-body .row:last-child { display: block; margin-bottom: 0; }
+			.popup-body .row .label { width: 45%; font-size: 12px; color: #6b7785; }
+			.popup-body .row .data-label {
+				width: 70%;
+				border-bottom: 1px solid #d5d5d5;
+				color: #474e56;
+				font-weight: bold;
+				font-size: 13px;
+				word-break: break-word;
+			}
+			.popup-body .input-control-m-c { border-bottom: 1px solid #ccc; margin-top: -1px; }
+			.popup-body select {
+				color: #313841;
+				font-size: 13px;
+			}
+			.popup-body .advanced-search-header__logo { width: 100%; font-size: 70px; text-align: center; color: #158b99; }
+			.popup-body .btn_wrapper {
+				background: #158b99;
+				border-radius: 88px;
+				margin: 0 120px;
+				width: 100px;
+				height: 37px;
+			}
+			.popup-body .btn_wrapper:hover { background: #106f7a; }
+			.popup-body .btn_wrapper a { padding: 10px 25px; position: relative; top: 10px; color: #fff; }
+		</style>
+		<style>
+			body { margin: 0; font-family: sans-serif; }
+			.container { display: flex; height: 100% }
+			.container .container { display: block; }
+			.header {
+				border-right: 1px solid #ccc;
+				max-height: 100%;
+				width: 17.5%;
+				padding: 10px;
+			}
+			.header .logo { text-align: center; }
+			.header__logo__menu-container__createNew-container {
+				background: #158b99;
+				color: #fff;
+				border-radius: 100px;
+				margin: 10px 40px 0;
+				display: flex;
+				align-items: center;
+				cursor: pointer;
+			}
+			.header__logo__menu-container__createNew-container:hover { background: #106f7a; }
+			.header__logo__menu-container__createNew-container__btn-createNew {
+				width: 100%;
+				padding: 10px 20px;
+			}
+			.header__logo__menu-container__createNew-container__btn-createNew i { padding-right: 10px; }
+			.header .menu-container {
+				margin: 20px -10px 0;
+				overflow: auto;
+				max-height: 360px;
+				position: relative;
+				border-bottom: 1px solid #ccc;
+			}
+			div[class$='-menu__title'] { padding-left: 20px; }
+			div[class$='-menu__title'] span {
+				font-size: 10px;
+				font-family: "Open-Sans Regular","Segoe UI Regular","Helvetica",Helvetica,sans-serif;
+				font-weight: bold;
+				color: #aaa;
+				letter-spacing: 1px;
+			}
+			div[class$='-menu'] ul {
+				margin: 0;
+				margin-bottom: 10px;
+				padding: 0;
+			}
+			li[class$='-menu__ul__li'] {
+				list-style-type: none;
+				overflow: hidden;
+				height: auto;
+				position: relative;
+				font-size: 1.2rem;
+			}
+			li[class$='-menu__ul__li']:hover a { background: #f9f9f9; }
+			a[class*='-menu__ul__li__a'] {
+				padding-left: 20px;
+				font-size: 14px;
+				font-weight: 700;
+				color: #6b7785;
+				position: relative;
+				display: flex;
+				height: 32px;
+				align-items: center;
+			}
+			a[class*='-menu__ul__li__a'] span { padding-left: 5px; }
+			.menu-active { color: #127d89 !important; }
+			ul li .menu-active:before {
+				content: "";
+				background: #158b99;
+				width: 5px;
+				height: 50px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.user-name-container { margin-top: 3px; display: flex; }
+			.menu .name-initial { position: relative; }
+			.user-name-container .name {
+				height: 100%;
+				margin-left: 10px;
+				margin-top: 7px;
+				font-size: 12px;
+				/*color: #6b7785;*/
+				font-weight: bold;
+			}
+			.user-login-name { display: inline-block; }
+			.name-label {
+				color: #9b9b9b;
+				font-size: 9px;
+				margin-bottom: 2px;
+			}
+			.toggle-user-information {
+				border: 2px solid #158b99;
+				padding: 0 2px;
+				border-radius: 4px;
+				margin-left: 66px;
+			}
+			.toggle-user-information:hover { background: #f1f1f1; }
+			.toggle-user-information i { color: #158b99; }
+			a.toggle-user-information:hover i { color: #106f7a; }
+			.toggle-user-information.more .fa-caret-down, .toggle-user-information.less .fa-caret-up { display: none; }
+			.user-information.expanded {
+				background: #fff;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 255px;
+				height: 100%;
+			}
+			.user-information.expanded .user-name-container { padding-left: 10px; }
+			.user-information-all { display: none; }
+			.user-information.expanded .user-information-all {
+				display: block;
+				border-top: 1px solid #ccc;
+				position: absolute;
+				top: 45px;
+				width: 259px;
+			}
+			.user-information.expanded .user-information-header {
+				width: 100%;
+				text-align: center;
+				font-size: 50px;
+				margin-top: 20px;
+				color: #158b99;
+			}
+			.user-information.expanded .header__logo__title__description { bottom: auto; margin-top: 5px; }
+			.user-information.expanded .user-information-wrapper {
+				padding-left: 20px;
+				padding-top: 10px;
+				color: #6b7785;
+			}
+			.user-information.expanded .user-information-wrapper .label { width: 37%; font-size: 12px; }
+			.user-information.expanded .user-information-wrapper .data-label { font-size: 14px; text-decoration: underline; color: #158b99; }
+			.user-information.expanded .user-information-wrapper:last-child .label { width: 39%; }
+			.user-information.expanded .name-initial, .user-information.expanded .user-login-name { display: none; }
+			.user-information.expanded .name {
+				display: flex;
+				align-items: center;
+				margin-top: 15px;
+			}
+			.user-information.expanded .name-label {
+				margin-bottom: 0;
+				font-size: 12px;
+				margin-left: 80px;
+				margin-right: 70px;
+			}
+			.user-information.expanded .toggle-user-information { margin-left: 0; }
+			.user-information.expanded .user-logout { display: block; }
+			.user-logout {
+				display: none;
+				position: absolute;
+				bottom: 0;
+				padding: 10px;
+				border-top: 1px solid #ccc;
+				width: 100%;
+				max-width: 240px;
+			}
+			.user-logout-wrapper {
+				background: #158b99;
+				width: 171px;
+				height: 42px;
+				border-radius: 88px;
+				margin: 0 30px;
+				text-align: center;
+				font-size: 12px;
+				letter-spacing: 1.8px;
+				display: flex;
+				align-items: center;
+			}
+			.btn-logout { padding: 14px 56px; color: #fff; }
+			.body {
+				max-height: 100%;
+				width: 81%;
+				background: #f1f1f1;
+				font-size: 1rem;
+			}
+			.overlayLoader {
+				width: 80%;
+				height: 100%;
+				background-color: #f9f9f9;
+				z-index: 5;
+				position: fixed;
+				visibility: hidden;
+			}
+			.overlayLoader.enabled {
+				visibility: visible;
+			}
+			.overlayLoader .loadMessage {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 100px;
+				height: 100px;
+				overflow: hidden;
+				border-radius: 10px;
+			}
+			.overlayLoader.enabled .loadMessage:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -150px;
+				width: 50px;
+				height: 100%;
+				background: rgba(255,255,255,.13);
+				background: linear-gradient(
+					to right, rgba(255, 255, 255, .13) 0%, rgba(255, 255, 255, .13) 77%, rgba(255, 255, 255, .5) 92%, rgba(255, 255, 255, 0) 100%);
+				transform: skewX(-30deg);
+				/*transition: 1s;*/
+				animation: shine 3s ease-in-out  infinite;
+				animation-fill-mode: forwards;
+			}
+			/*.overlayLoader.enabled .loadMessage:before{
+				left: 150px;
+			}*/
+			.overlayLoader .loadMessage img { width: 100%; }
+			.loadMessage span { color: transparent; }
+			
+			.page-header {
+				width: 100%;
+				border-bottom: 1px solid #ccc;
+				background: #fff;
+				max-height: 42px;
+				color: #333;
+				font-weight: bold;
+				font-size: 18px;
+			}
+			.page-header-wrapper { padding: 10px 20px; }
+			.form { margin: 10px 20px; }
+		</style>
+		<style>
+		@keyframes shine{
+		  10% {
+			opacity: 1;
+			top: 0;
+			left: -150px;
+			transition-property: left, top, opacity;
+			transition-duration: .7s, .7s, .15s;
+			transition-timing-function: ease;
+		  }
+		  100% {
+			opacity: 0;
+			top: 0;
+			left: 150px;
+			transition-property: left, top, opacity;
+		  }
+		}
+		@keyframes rotation {
+			from {
+				transform: rotate(0deg);
+			}
+			to {
+				transform: rotate(359deg);
+			}
+		}
+		</style>
+		<script type="text/javascript" src="../assets/scripts/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="logo">
+					<div class="header__logo__title">
+						<img src="../assets/images/logo-garuda-indonesia.jpg" width="240px" onmousedown="return false" />
+						<div class="header__logo__title__description">Checklist Activity Management</div>
+					</div>
+					<div class="header__logo__menu-container">
+						<div class="header__logo__menu-container__createNew-container">
+							<a class="header__logo__menu-container__createNew-container__btn-createNew">
+								<i class="fa fa-plus"></i>Create New
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="menu">
+					<div class="menu-container">
+						<div class="general-menu">
+							<div class="general-menu__title">
+								<span class="general-menu__title__content">Main</span>
+							</div>
+							<ul class="general-menu__ul">
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a" href="Dashboard.html">
+										<i class="fas fa-tachometer-alt"></i>
+										<span class="general-menu__ul__li__a__content">Dashboard</span>
+									</a>
+								</li>
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a">
+										<i class="fas fa-search"></i>
+										<span class="general-menu__ul__li__a__content">Search</span>
+									</a>
+								</li>
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a">
+										<i class="far fa-file"></i><i class="fas fa-long-arrow-alt-right"></i>
+										<span class="general-menu__ul__li__a__content">My Route Activity Request</span>
+									</a>
+								</li>
+								<li class="general-menu__ul__li">
+									<a class="general-menu__ul__li__a menu-active">
+										<i class="far fa-file"></i><i class="fas fa-long-arrow-alt-left"></i>
+										<span class="general-menu__ul__li__a__content">Route For My Review</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="specific-menu">
+							<div class="specific-menu__title">
+								<span class="specific-menu__title__content">Application</span>
+							</div>
+							<ul class="specific-menu__ul">
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="fas fa-cog"></i>
+										<span class="specific-menu__ul__li__a__content">Configuration Setting</span>
+									</a>
+								</li>
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="far fa-envelope"></i>
+										<span class="specific-menu__ul__li__a__content">Email Template</span>
+									</a>
+								</li>
+							</ul>
+							<div class="specific-menu__title">
+								<span class="specific-menu__title__content">Tools</span>
+							</div>
+							<ul class="specific-menu__ul">
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="fas fa-bars"></i>
+										<span class="specific-menu__ul__li__a__content">Menu</span>
+									</a>
+								</li>
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="fas fa-user-cog"></i>
+										<span class="specific-menu__ul__li__a__content">Role</span>
+									</a>
+								</li>
+								<li class="specific-menu__ul__li">
+									<a class="specific-menu__ul__li__a">
+										<i class="far fa-address-card"></i>
+										<span class="specific-menu__ul__li__a__content">Menu Role</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="user-information">
+						<div class="user-information-all">
+							<div class="user-information-header">
+								<div class="user-information-header__logo">
+									<i class="fas fa-user-circle"></i>
+								</div>
+								<div class="header__logo__title__description">User Information</div>
+							</div>
+							<div class="user-information-wrapper">
+								<div class="label">Name:</div>
+								<div class="data-label">Taufiq Fitriansyah</div>
+							</div>
+							<div class="user-information-wrapper">
+								<div class="label">NIK:</div>
+								<div class="data-label">1601273481</div>
+							</div>
+							<div class="user-information-wrapper">
+								<div class="label">Department:</div>
+								<div class="data-label">IT</div>
+							</div>
+						</div>
+						<div class="user-logout">
+							<div class="user-logout-wrapper">
+								<a class="btn-logout" href="../login/Login.html">LOGOUT</a>
+							</div>
+						</div>
+						<div class="user-name-container">
+							<div class="name-initial">
+								<span>T</span>
+							</div>
+							<div class="name">
+								<div class="name-label">My Profile</div>
+								<div class="user-login-name">Taufiq Fitriansyah</div>
+								<a class="toggle-user-information more">
+									<i class="fas fa-caret-down"></i>
+									<i class="fas fa-caret-up"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="body">
+				<div class="overlayLoader enabled">
+					<div class="loaderDiv">
+						<div class="loadMessage">
+							<img src="../assets/images/icon-garuda-indonesia.png" onmousedown="return false">
+							<span>Loading</span>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="page-header">
+						<div class="page-header-wrapper">
+							<span class="page-header-text">Routes For My Review</span>
+						</div>
+					</div>
+					<!--Form area-->
+					<div class="form">
+						<div class="row">
+							<div class="view">
+								<div class="innerpanel">
+									<div class="grid">
+										<div class="grid-header"></div>
+										<div class="grid-toolbars">
+											<div class="toolbar-wrapper">
+												<div class="filter-container">
+													<div class="quicksearch filter">
+														<div class="searchDDL">
+															<div class="input-control select-box dropdown-box">
+																<div class="input-control-m">
+																	<div class="input-control-m-c">
+																		<div class="input-control-wrapper">
+																			<select class="input-control" name="quicksearchDDL">
+																				<option value="">All Fields</option>
+																				<option value="Route">Route</option>
+																				<option value="A/C">A/C</option>
+																				<option value="Operational Plan">Operational Plan</option>
+																				<option value="Region">Region</option>
+																			</select>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="filterTxt">
+															<div class="input-control text-input">
+																<div class="input-control-m">
+																	<div class="input-control-m-c">
+																		<div class="input-control-wrapper">
+																			<input type="text" class="input-control" />
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<a class="apply-filter"><i class="fas fa-redo-alt"></i></a>
+													</div>
+													<div class="advancedsearch filter">
+														<div class="btn_wrapper">
+															<a class="toggle-subview"><i class="fas fa-search"></i> Advanced Search</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="grid-body">
+											<div class="grid-body-m">
+												<div class="grid-body-m-c">
+													<div class="grid-body-wrapper">
+														<div class="grid-body-headers"></div>
+														<div class="grid-body-content">
+															<div class="grid-body-content-wrapper">
+																<div class="scroll-wrapper">
+																	<table class="grid-content-table">
+																		<thead>
+																			<th>Route</th>
+																			<th>A/C</th>
+																			<th>Operational Plan</th>
+																			<th>Region</th>
+																		</thead>
+																		<tbody>
+																			<tr class="empty">
+																				<td colspan="4" class="empty">No items to display.</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="grid-footer">
+											<div class="toolbars">
+												<div class="toolbar">
+													<div class="toolbar-wrapper">
+														<a class="toolbar-button double-arrow-left disabled">
+															<i class="fas fa-angle-double-left"></i>
+														</a>
+														<a class="toolbar-button arrow-left disabled">
+															<i class="fas fa-angle-left"></i>
+														</a>
+														<div class="grid-paging-control">
+															<div class="input-control text-input small">
+																<div class="input-control-m">
+																	<div class="input-control-m-c">
+																		<div class="input-control-wrapper">
+																			<input type="text" class="input-control" value="1" />
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<a class="toolbar-button arrow-right disabled">
+															<i class="fas fa-angle-right"></i>
+														</a>
+														<a class="toolbar-button double-arrow-right disabled">
+															<i class="fas fa-angle-double-right"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--selesai Form area-->
+				</div>
+			</div>
+		</div>
+		<div class="popup-overlay"></div>
+		<div class="popupManager">
+			<div class="popup-header">
+				<div class="title">
+					<span>Advanced Search</span>
+				</div>
+				<div class="toolbar">
+					<a><i class="fas fa-times"></i></a>
+				</div>
+			</div>
+			<div class="popup-body">
+				<div class="popup-body-m">
+					<div class="popup-body-m-c">
+						<div class="popup-body-wrapper">
+						<div class="row">
+							<div class="advanced-search-header__logo">
+								<i class="fas fa-plane"></i>
+							</div>
+						</div>
+							<div class="row">
+								<div class="label">
+									<span>Route:</span>
+								</div>
+								<div class="input-control select-box dropdown-box">
+									<div class="input-control-m">
+										<div class="input-control-m-c">
+											<div class="input-control-wrapper">
+												<select class="input-control" name="routesearchDDL">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label">
+									<span>A/C:</span>
+								</div>
+								<div class="input-control select-box dropdown-box">
+									<div class="input-control-m">
+										<div class="input-control-m-c">
+											<div class="input-control-wrapper">
+												<select class="input-control" name="aircraftsearchDDL">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label">
+									<span>Operational Plan:</span>
+								</div>
+								<div class="input-control select-box dropdown-box">
+									<div class="input-control-m">
+										<div class="input-control-m-c">
+											<div class="input-control-wrapper">
+												<select class="input-control" name="operationalPlansearchDDL">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label">
+									<span>Region:</span>
+								</div>
+								<div class="input-control select-box dropdown-box">
+									<div class="input-control-m">
+										<div class="input-control-m-c">
+											<div class="input-control-wrapper">
+												<select class="input-control" name="regionsearchDDL">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="innerpanel">
+									<div class="toolbar-wrapper">
+										<div class="btn_wrapper">
+											<a class="btn-advancedSearch">Search</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$(".general-menu__ul__li").click(function(){
+				$("a").removeClass("menu-active");
+				$(this).find($(".general-menu__ul__li__a")).addClass("menu-active");
+			});
+			$(".specific-menu__ul__li").click(function(){
+				$("a").removeClass("menu-active");
+				$(this).find($(".specific-menu__ul__li__a")).addClass("menu-active");
+			});
+			$(".toggle-user-information").click(function(){
+				$(this).toggleClass("more").toggleClass("less");
+				$(".user-information").toggleClass("expanded");
+			});
+			$(".toggle-subview").click(function() {
+				$(".popup-overlay").addClass("enabled");
+			});
+			$(".popup-header .toolbar").click(function(){
+				$(".popup-overlay").removeClass("enabled");
+			});
+			$(".apply-filter").click(function() {
+				$(".apply-filter i").addClass("rotate");
+				setTimeout( function() {
+					$(".apply-filter i").removeClass("rotate");
+				}, 1000);
+			});
+			finishLoading();
+			
+			function finishLoading() {
+				setTimeout( function() {
+					$(".overlayLoader").removeClass("enabled");
+				}, 2000);
+			}
+		</script>
+		<script>
+			var selectedFilter = "";
+			var index = 5;
+			$("select[name='quicksearchDDL']").change(function() {
+				selectedFilter = $(this).val();
+				if(selectedFilter=="Route"){
+					index = 0;
+				}
+				else{
+					if(selectedFilter=="A/C"){
+						index = 1;
+					}
+					else{
+						if(selectedFilter=="Operational Plan"){
+							index = 2;
+						}
+						else{
+							if(selectedFilter=="Region"){
+								index = 3;
+							}
+							else{
+								index = 5;
+							}
+						}
+					}
+				}
+			});
+			
+			var rute = [
+				"CGK-YIA-CGK", "MDC-DVO-MDC", "CGK-BTH-PEK-BTH-CGK", "DPS-KNO-AMS-KNO-DPS", "JKT-SBY-JKT",
+				"JKT-MK-JKT", "JKT-YGY-JKT", "JKT-KL-JKT", "JKT-LDN-JKT", "JKT-NYC-JKT"
+			];
+			var aircraft = [
+				"B747-400", "A330-900", "B737-800(162 seat)", "A330-300 3 Class", "A330-300 2 Class",
+				"A330-200 (222 seat)", "B737-800(174 seat)", "B737-8 Max", "CRJ 1000", "ATR 72-600"
+			];
+			var aircraftCode = [
+				"744", "339", "738", "777", "773",
+				"332", "73H", "7M8", "CRK", "AT7"
+			];
+			var operationalPlan = [
+				"4 Oct 2019", "27 Sept 2019", "29 Nov 2019", "20 Jan 2019", "5 May 2019",
+				"7 Jul 2019", "20 Jun 2019", "20 Jul 2019", "8 Aug 2019", "9 Sept 2019"
+			];
+			var region = [
+				"DOM2 (JKT)", "INT1 (ASA)", "INT3 (CTH)", "INT5 (EUR)", "DOM1 (MES)",
+				"DOM3 (DPS)", "DOM4 (UPG)", "INT2 (JPK)", "INT4 (SWP)", "INT5"
+			];
+			var text = "<tr>";
+			for(var i=0; i<rute.length; i++) {
+				if(i>0) {
+					text += "<tr>";
+				}
+				text += "<td class='route' value='"+rute[i]+"'>" + rute[i] + "</td>";
+				text += "<td class='aircraft' value='"+aircraftCode[i]+"'>" + aircraft[i] + "</td>";
+				text += "<td class='operationalPlan' value='"+operationalPlan[i]+"'>" + operationalPlan[i] + "</td>";
+				text += "<td class='region' value='"+region[i]+"'>" + region[i] + "</td></tr>";
+			}
+			$("tbody").append(text);
+			$("tr.empty").remove();
+			
+			var text2 = "";
+			rute.forEach(dropdownOption);
+			$("select[name='routesearchDDL']").append(text2);
+			text2 = "";
+			aircraft.forEach(dropdownOption);
+			$("select[name='aircraftsearchDDL']").append(text2);
+			text2 = "";
+			operationalPlan.forEach(dropdownOption);
+			$("select[name='operationalPlansearchDDL']").append(text2);
+			text2 = "";
+			region.forEach(dropdownOption);
+			$("select[name='regionsearchDDL']").append(text2);
+			text2 = "";
+			
+			function dropdownOption(value){
+				text2 += "<option value='"+value+"'>" + value + "</option>";
+			}
+			
+			$(".grid-content-table tbody tr:not(.empty)").click(function() {
+				$(".grid-content-table tbody tr").removeClass("selected");
+				$(this).addClass("selected");
+			});
+			$(".apply-filter").click(function(){
+				var searchValue = $(".filterTxt input").val().toLowerCase();
+				filter(searchValue, "");
+			});
+			$(".filterTxt input").on("keyup", function(){
+				if(event.keyCode==13){
+					$(".apply-filter").click();
+				}
+			});
+			var keyword1 = $("select[name='routesearchDDL']").val();
+			var keyword2 = $("select[name='aircraftsearchDDL']").val();
+			var keyword3 = $("select[name='operationalPlansearchDDL']").val();
+			var keyword4 = $("select[name='regionsearchDDL']").val();
+			$("select[name='routesearchDDL']").change(function(){
+				keyword1 = $(this).val();
+			});
+			$("select[name='aircraftsearchDDL']").change(function(){
+				keyword2 = $(this).val();
+			});
+			$("select[name='operationalPlansearchDDL']").change(function(){
+				keyword3 = $(this).val();
+			});
+			$("select[name='regionsearchDDL']").change(function(){
+				keyword4 = $(this).val();
+			});
+			$(".popup-body .btn-advancedSearch").click(function(){
+				var keyword = "";
+				keyword = keyword1 + keyword2 + keyword3 + keyword4;
+				$(".popup-overlay").removeClass("enabled");
+				filter(keyword.toLowerCase(), "advanced");
+			});
+			
+			function assignKeyword(controllerName, variable){
+				$("select[name='"+controllerName+"']").change(function(){
+					variable = $(this).val();
+				});
+			}
+			function filter(searchValue, type){
+				$("tr.empty").remove();
+				//$("tbody tr").filter(function() {
+				  //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+				  //alert($(this).text().toLowerCase().indexOf(value));
+				//});
+				$("tbody tr").addClass("hidden").each(function(){
+					if(searchValue == ""){
+						$("tbody tr").removeClass("hidden");
+					}
+					else{
+						if(index != 5 ){
+							if($(this).find("td:eq("+index+")").text().toLowerCase().indexOf(searchValue) > -1){
+								//all search (textbox != empty & category != "All Fields")
+								$(this).removeClass("hidden");
+							}
+						}
+						else{
+							//all search (textbox != empty & category = "All Fields")
+							if(type != ""){
+								if($(this).find("td").text().toLowerCase() == searchValue){
+									$(this).removeClass("hidden");
+								}
+							}
+							else{
+								if($(this).find("td").text().toLowerCase().indexOf(searchValue) > -1){
+									$(this).removeClass("hidden");
+								}
+							}
+						}
+					}
+				});
+				if($("tbody tr.hidden").length == 10){
+					$("tbody").append($("<tr class='empty'><td colspan='4' class='empty'>No items to display.</td></tr>"));
+				}
+			}
+		</script>
+	</body>
+</html>

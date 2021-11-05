@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="24px" viewBox="0 0 21 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>ico.req4ma.selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="30" height="30"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.400000006">
+        <g id="menu.reqforqpproval.selected" transform="translate(-28.000000, -9.000000)">
+            <g id="ico.req4ma.selected" transform="translate(22.000000, 5.000000)">
+                <g id="ico.req4ma">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Mask"></g>
+                    <path d="M9.53968254,5 L18.4285714,5 C19.8311994,5 20.968254,6.1370546 20.968254,7.53968254 L20.968254,20.6483516 C20.968254,22.0509796 19.8311994,23.1880342 18.4285714,23.1880342 L9.53968254,23.1880342 C8.1370546,23.1880342 7,22.0509796 7,20.6483516 L7,7.53968254 C7,6.1370546 8.1370546,5 9.53968254,5 Z M17.7936508,8.24786325 L10.0695079,8.24786325 L17.7936508,8.24786325 Z M13.984127,12.1452991 L10.073016,12.1452991 L13.984127,12.1452991 Z M16.5238095,16.042735 L10.073016,16.042735 L16.5238095,16.042735 Z" id="Path" stroke="#0D9B70" stroke-width="1.42857143" mask="url(#mask-2)"></path>
+                    <g id="Group" mask="url(#mask-2)" stroke-linecap="round" stroke-linejoin="round">
+                        <g transform="translate(13.000000, 17.000000)" id="Group-3">
+                            <g>
+                                <g id="Group-2" stroke="#FFFFFF" stroke-width="4">
+                                    <polyline id="Path-3" points="7.33422852 8.3059082 11.0969846 4.54315208 7.08124014 0.527407576"></polyline>
+                                    <path d="M11.1347656,4.53369141 L0.955637474,4.53369141" id="Path-4"></path>
+                                </g>
+                                <g id="Group-2" stroke="#0D9B70" stroke-width="1.5">
+                                    <polyline id="Path-3" points="7.33422852 8.3059082 11.0969846 4.54315208 7.08124014 0.527407576"></polyline>
+                                    <path d="M11.1347656,4.53369141 L0.955637474,4.53369141" id="Path-4"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

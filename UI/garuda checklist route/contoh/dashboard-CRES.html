@@ -1,0 +1,1124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard - CRES</title>	
+	<link rel="stylesheet" type="text/css" href="Styles/DigitalizingEnterprise/css/dashboard.css"/>
+	<!-- <link rel="stylesheet" type="text/css" href="Styles/DigitalizingEnterprise/css/dash_kun.css"/> -->
+	<script src="../Script/jquery.min.js"></script>
+	<script src="Styles/DigitalizingEnterprise/scripts/Chart.bundle.js"></script>
+	
+	<style type="text/css">
+			.container.task { display: flex; }
+			.container.task .task-submitted-section { max-width: 40%; margin-top: 15px !important; }
+			.container.task .task-received-section { max-width: 60%; }
+			.container.task .task-submitted-section__gauge-info__gauge {
+				position: relative;
+				margin: 15px 15px 0;
+				width: 93% !important;
+				height: auto !important;
+				padding: 0;
+			}
+			.container.task .task-submitted-section__gauge-info__gauge__info {
+				display: flex;
+				width: 100%;
+				margin: 0;
+				position: relative;
+				top: 0;
+				left: 0;
+			}
+			.container.task .task-submitted-section__gauge-info__gauge__info__count {
+				max-width: 34%;
+				color: #555;
+				font-size: 40px;
+				padding-right: 10px;
+				text-align: left;
+				word-break: break-word;
+				line-height: 1;
+			}
+			.container.task .task-submitted-section__gauge-info__gauge__info__name {
+				max-width: 18%;
+				color: #999;
+				text-align: left;
+				font-size: 16px;
+				padding-top: 5px;
+				line-height: 1;
+			}
+			.container.task .task-submitted-section__go-to-my-requests {
+				text-decoration: none;
+				color: #0d9d70;
+				font-size: 50px;
+				position: absolute;
+				right: 25px;
+				bottom: 10px;
+				cursor: pointer;
+			}
+			.container.task .task-submitted-section__go-to-my-requests:hover { color: #03694a; }
+			.container.task .doc-summary-counter { padding: 0 15px; }
+			.task-submitted-section__gauge-info__text-info > * {
+				text-align: center !important;
+				line-height: .6;
+			}
+			.task-submitted-section__gauge-info__pending__count { color: #3abbdb; }
+			.task-submitted-section__gauge-info__approved__count { color: #7ec654; }
+			.task-submitted-section__gauge-info__distributed__count { color: #1be0bb; }
+			.task-submitted-section__gauge-info__rejected__count { color: #dc485c; }
+			.container.cres_doc { font-family: lato; }
+			.section-title.cres-title {
+				margin: 10px 20px 5px;
+				color: #313841;
+				font-size: 16px;
+			}
+			.container .cres-update {
+				border: 1px solid #ccc;
+				border-radius: 8px;
+				margin: 0 20px;
+				padding: 10px 0;
+			}
+			.container.cres-update { background: white; }
+			.container.cres-update .row { display: flex; max-height: 90px; }
+			.container.cres-update .row.title .section-container {
+				width: 33.33%;
+				padding: 0 10px;
+			}
+			.container.cres-update .row.content .section-container {
+				width: 31.5%;
+				padding: 0 10px;
+				overflow-y: auto;
+			}
+			.section-container .title { color: #9b9b9b; }
+			.section-container .content-title {
+				color: #0d9b70;
+				font-weight: bold;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			.section-container .last-update {
+				color: #999;
+				font-size: 9.4px;
+			}
+			
+			
+            .task-received-section__task-info {
+                padding:  0;
+                vertical-align:  top;
+                text-align:  left;
+                display:  block;
+                font-size:  0;
+                overflow:  hidden;
+                margin: 10px 20px 30px 20px;
+            }            
+             .task-received-section__task-info__info-row__item{
+                cursor:pointer;
+            }
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item {
+                background: transparent !important;
+                width: 33.33%;
+                margin:  0;
+                padding: 0;
+                display:  inline-block;
+                vertical-align: top;
+                margin-bottom: -1px;
+                border:none !important;
+                border-bottom: 1px solid #dedede !important;
+                border-radius:  0 !important;
+            }
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item: hover{
+                border-radius: 5px !important;
+                background-color: #f9f9f9 !important;
+            }
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item > div {
+                display:  inline-block;
+                vertical-align: middle;
+            }            
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item > span {
+                background: #dedede;
+                height: 70px;
+                width: 1px;
+                display:  block;
+                position:  absolute;
+                right:  0;
+                top: 10px;
+            }
+            /* .task-received-section__task-info > div.task-received-section__task-info__info-row__item:nth-of-type(3) > span {
+                display:  none;
+            }*/
+
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__img {
+                text-align: right;
+                border: none;
+                width: auto;
+                margin: 20px 0 20px 10%;
+                padding:  0;
+                height:  auto;
+            }
+
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__img > svg {
+                width: 45px;
+                margin-right: 10px;
+                height: 55px;
+                display:  inline-block;
+            }
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__count {
+                width: 15%;
+                height: 30px;
+                text-align: right;
+                margin:  0;
+                /*text-shadow:  2px 2px 0px rgba(0, 0, 0, 0.1);*/
+            }
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__text-info {
+                width:  auto;
+                max-width: 50%;
+                margin: 0;
+                position:  relative;
+                padding-left: 5%;
+            }
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .unread-task {
+                top: -14px;
+                right: -14px;
+            }
+
+
+            body .task-submitted-section * ,
+            body .task-received-section * {
+                transition: all .2s;
+            }
+
+
+
+            body .task-submitted-section {
+                display:  block;
+            }
+            
+            body .task-submitted-section__gauge-info {
+                display:  block;
+                clear:  both;
+                margin: 10px 20px 30px 20px;
+            }
+            body .task-submitted-section__gauge-info > .task-submitted-section__gauge-info__gauge {
+                border: none;
+                position:  absolute;
+                z-index:  2;
+                margin: 15px;
+            }
+            body .task-submitted-section__gauge-info > .doc-summary-counter {
+                display: block;
+                margin: auto;
+                border: none;
+                padding-left: 160px;
+                font-size: 0px;
+            }
+
+            body .task-submitted-section__gauge-info > .doc-summary-counter > div {
+                display: inline-block;
+                width: 25%;
+                font-size: 0px;
+                padding: 0;
+                text-align: center;
+                position: relative;
+                margin: 0 0 10px;
+            }
+            body .task-submitted-section__gauge-info > .doc-summary-counter > div:before {
+                /*content: " ";*/
+                width: 1px;
+                height: 100%;
+                background: #ccc;
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+
+            body .task-submitted-section__gauge-info > .doc-summary-counter > div:hover {
+                border: none !important; 
+            }
+
+
+            body .task-submitted-section__gauge-info > .doc-summary-counter > div > div:nth-of-type(1)  {
+                width: auto;
+                text-align: right;
+                float: none;
+                display: inline-block;
+                padding-right: 10px;
+                position: relative;
+                font-size: 74px;
+                /*text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);*/
+            }
+			.task-submitted-section .task-submitted-section__gauge-info__unread-pending__count.myrequest-unread-items {
+				position: absolute;
+				bottom: 10px;
+				right: auto;
+				left: 65px;
+			}
+			.task-submitted-section .task-submitted-section__gauge-info__approved .task-submitted-section__gauge-info__unread-pending__count.myrequest-unread-items { left: 72px; }
+			.task-submitted-section .task-submitted-section__gauge-info__distributed .task-submitted-section__gauge-info__unread-pending__count.myrequest-unread-items { left: 77px; }
+			.task-submitted-section .task-submitted-section__gauge-info__rejected .task-submitted-section__gauge-info__unread-pending__count.myrequest-unread-items { left: 47px; }
+			.container.task .task-submitted-section, .task-received-section { margin-top: 0 !important; }
+			
+			
+            body .doc-summary-counter .task-submitted-section__gauge-info__text-info {
+                width: auto;
+                display: inline-block;
+                float: none;
+                padding: 0;
+                text-align: left;
+            }
+
+
+
+            .doc-summary-counter .myrequest-unread-items,
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .unread-task {
+                position: initial;
+                text-align: center !important;
+                vertical-align: top;
+                background: linear-gradient(-45deg, #b21313, #df1919);
+                padding: 5px !important;
+                border-radius: 100px;
+                font-size: 7pt;
+                color: white;
+                font-family: Lato;
+                letter-spacing: 1px;
+                z-index: 1;
+                height: 7px;
+                line-height: 8px;
+                display: inline-block;
+                clear:  both;
+                margin:  0;
+            }
+
+
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item .unread-task {
+                left: 25px;
+                top: -5px;
+                position: absolute;
+                border: 2px solid #fff;
+                right: auto;
+            }
+            
+            body .doc-summary-counter .myrequest-unread-items:after ,
+            body .unread-task:after{
+                display: none;
+            }
+
+            .task-received-section__task-info > div.task-received-section__task-info__info-row__item > div {
+                position: relative;
+            }
+
+
+
+            .clear {
+                clear: both;
+            }
+
+            .task-submitted-section__title, .task-received-section__title {
+                padding: 0;
+                margin: 10px 20px 0px 20px;
+                -webkit-font-smoothing: antialiased;
+                color: #313841;
+                font-size: 16px;
+            }
+
+            .task-received-section {
+                margin-top: 15px;
+            }
+
+            body .task-submitted-section__gauge-info, body .task-received-section__task-info {
+                margin: 5px 20px 0px 20px;
+                border-radius: 8px;
+            }
+			
+			.task-received-section__task-info > .task-received-section__task-info__info-row__item:hover {
+				background: #f9f9f9 !important;
+			}
+
+
+
+            @media screen and (max-width: 1440px) {
+                body .task-submitted-section__gauge-info > .doc-summary-counter > div > div:nth-of-type(1) {
+                    /*font-size: 55px;*/
+					font-size: 35px;
+                }
+                body .doc-summary-counter .task-submitted-section__gauge-info__text-info > div .label_info {
+                    font-size: 12px;
+                    letter-spacing: 0;
+					color: #9b9b9b;
+					font-weight: normal;
+                }
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__text-info {
+                    font-size: 16px;
+                    line-height: 16px;
+                }
+
+            }
+
+            @media screen and (max-width: 1140px) {
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__text-info {
+                    font-size: 14px;
+                    line-height: 14px;
+                    display: block;
+                    width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 10px;
+                    padding: 0;
+                    text-align: center;
+                }
+
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item {
+                    text-align: center;
+                }
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__img {
+                        margin: 20px 0px 10px 0px;
+                }
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item > span {
+                    height: 86px;
+                }
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__img > svg {
+                    height: 40px;
+                }
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__count {
+                    text-align: left;
+                    margin-top: 10px;
+                }
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .unread-task {
+                    top: -10px;
+                }
+            }
+
+
+            @media screen and (max-width: 1080px) {
+                .task-received-section__task-info > div.task-received-section__task-info__info-row__item .task-received-section__task-info__info-row__item__count {
+                    width: auto;
+                }
+                body .task-submitted-section__gauge-info > .doc-summary-counter > div > div:nth-of-type(1) {
+                    font-size: 35px;
+                }
+                body .task-submitted-section__gauge-info > .doc-summary-counter > div > div:nth-of-type(1) {
+                    text-align: center;
+                    margin: 0;
+                    padding:0; 
+                }
+                .task-submitted-section__gauge-info__unread-pending__count.myrequest-unread-items {
+                    margin: 0 2px -5px 0;
+					display: inline-block;
+                }
+                body .doc-summary-counter .task-submitted-section__gauge-info__text-info {
+                    width: 100%;
+                    text-align: center;
+                    margin:  0;
+                    padding:  0;
+                }
+                body .doc-summary-counter .task-submitted-section__gauge-info__text-info * {
+                    text-align: center !important;
+                }
+            }
+    </style>
+		
+		
+</head>
+<body>
+	<div class="container task">
+		<div class="task-submitted-section">
+            <div class="task-submitted-section__title">
+                My Document Requests - CRES
+            </div>
+            
+            <div class="task-submitted-section__gauge-info">
+                <div class="task-submitted-section__gauge-info__gauge">
+                    <div class="task-submitted-section__gauge-info__gauge__info">
+                        <div class="task-submitted-section__gauge-info__gauge__info__count">0</div>
+                        <div class="task-submitted-section__gauge-info__gauge__info__name">Total Requests</div>
+						<a href="Form.aspx?_Name=Form%20List%20My%20Request" class="task-submitted-section__go-to-my-requests">→</a>
+                    </div>
+                    <span></span>
+					<canvas class="task-submitted-section__gauge-info__gauge__canvas" id="myChart" width="150" height="137" style="position:relative; z-index:2; max-height: 130px;">
+					</canvas>
+                </div>
+
+
+                <div class="doc-summary-counter">
+                    <div class="task-submitted-section__gauge-info__pending" onclick="GoToMyRequestPendingMenu();">
+                        <div class="task-submitted-section__gauge-info__pending__count">
+							<span></span>
+						</div>
+						
+                        <div class="task-submitted-section__gauge-info__text-info">
+                            <div class="task-submitted-section__gauge-info__unread-pending__count"></div>
+                            <div class="task-submitted-section__gauge-info__pending__text-info__action" style="max-width: 50%; margin: 0 20px;">
+                                <!-- <a href="javascript:void(0);" onclick="GoToMyRequestPendingMenu();">Pending</a> -->
+                                <a href="Form.aspx?_Name=Form%20List%20My%20Request" style="text-decoration:none;" class="label_info">Pending Request</a>
+                            </div>
+                        </div>					
+                        <span></span>           
+                    </div>
+
+                    <div class="task-submitted-section__gauge-info__approved" onclick="GoToMyRequestApprovedMenu();">
+                        <div class="task-submitted-section__gauge-info__approved__count">
+							<span></span>
+						</div>
+                        <div class="task-submitted-section__gauge-info__text-info">
+                            <div class="task-submitted-section__gauge-info__unread-approved__count"></div>
+                            <div class="task-submitted-section__gauge-info__approved__text-info__action">
+                                <!-- <a href="javascript:void(0);" onclick="GoToMyRequestApprovedMenu();">Approved</a> -->
+                                <a href="Form.aspx?_Name=Form%20List%20My%20Request&amp;tab=approved" style="text-decoration:none;" class="label_info">Approved Request</a>
+                            </div>
+                        </div>
+                        <span></span>
+                    </div>
+
+                    <div class="task-submitted-section__gauge-info__distributed" onclick="GoToMyRequestDistributedMenu();">
+                        <div class="task-submitted-section__gauge-info__distributed__count">
+							<span></span>
+						</div>
+                        <div class="task-submitted-section__gauge-info__text-info">
+                            <div class="task-submitted-section__gauge-info__unread-distributed__count"></div>
+                            <div class="task-submitted-section__gauge-info__distributed__text-info__action">
+                                <!-- <a href="javascript:void(0);" onclick="GoToMyRequestDistributedMenu();">Distributed</a> -->
+                                <a href="Form.aspx?_Name=Form%20List%20My%20Request&amp;tab=Distributed" style="text-decoration:none;" class="label_info">Distributed Request</a>
+                            </div>
+                        </div>
+                        <span></span>
+                    </div>
+
+                    <div class="task-submitted-section__gauge-info__rejected" onclick="GoToMyRequestRejectedMenu();">
+                        <div class="task-submitted-section__gauge-info__rejected__count">
+							<span></span>
+						</div>
+                        <div class="task-submitted-section__gauge-info__text-info">
+                            <div class="task-submitted-section__gauge-info__unread-rejected__count"></div>
+                            <div class="task-submitted-section__gauge-info__rejected__text-info__action" style="max-width: 50%; margin: 0 20px;">
+                                <!-- <a href="javascript:void(0);" onclick="GoToMyRequestRejectedMenu();">Rejected</a> -->
+                                <a href="Form.aspx?_Name=Form%20List%20My%20Request&amp;tab=Rejected" style="text-decoration:none;" class="label_info">Rejected Request</a>
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="task-received-section">
+            <div class="task-submitted-section__title">
+                Requests for My Approval - CRES
+            </div>
+            <div class="task-received-section__task-info">
+                    <div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuProperty();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="49px" height="46px" viewBox="0 0 49 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 25</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-1065.000000, -448.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-5" transform="translate(662.004578, 0.370048)">
+                                                    <g id="Group-22">   <!--Dyah: All Group 22-->
+                                                        <path d="M5.83466576,0 L27.2355964,8.8817842e-16 C30.4579934,-2.56582969e-15 33.0702622,2.61226884 33.0702622,5.83466576 L33.0702622,34.6051642 C33.0702622,37.8275611 30.4579934,40.43983 27.2355964,40.43983 L5.83466576,40.43983 C2.61226884,40.43983 3.94629807e-16,37.8275611 0,34.6051642 L0,5.83466576 C-3.94629807e-16,2.61226884 2.61226884,1.48012313e-15 5.83466576,8.8817842e-16 Z M25.5542935,7.22139821 L7.26715245,7.22139821 L25.5542935,7.22139821 Z M16.5351311,15.8870761 L7.27545791,15.8870761 L16.5351311,15.8870761 Z M22.547906,24.5527539 L7.27545791,24.5527539 L22.547906,24.5527539 Z" id="Path" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <path d="M29.5812738,44.5927506 L26.3923675,41.0249444 C25.8389049,40.4057205 25.0477558,40.0517424 24.2172385,40.0517424 L22.580732,40.0517424 C20.9695336,40.0517424 19.6633991,38.745608 19.6633991,37.1344096 L19.6633991,28.4084834 C19.6633991,26.797285 20.9695336,25.4911506 22.580732,25.4911506 L29.8684812,25.4911506 C30.3323126,25.4911506 30.7894588,25.3805544 31.2019973,25.1685365 L33.6098447,23.9310602 C34.6331837,23.4051308 35.8891138,23.8083609 36.4150432,24.8316998 C36.5664476,25.1262984 36.6454257,25.4527518 36.6454257,25.7839792 L36.6454257,39.8631343 C36.6454257,40.4669122 36.4580905,41.0558167 36.1092569,41.5486279 L34.1375669,44.3341132 C33.2066945,45.6491939 31.3859898,45.9606562 30.0709092,45.0297838 C29.8917783,44.902987 29.7275274,44.7563818 29.5812738,44.5927506 Z" id="Path-3" fill="#FFFFFF"></path>
+                                                        <path d="M23.4745229,28.2644367 C22.6689237,28.2644367 22.0158564,28.9175039 22.0158564,29.7231032 L22.0158564,34.9666091 C22.0158564,35.7722083 22.6689237,36.4252755 23.4745229,36.4252755 L30.2580393,36.4252755 C30.7906819,36.4252755 31.3188496,36.5225181 31.8165656,36.7122205 L42.1464927,40.6494298 C42.3123981,40.7126639 42.4884539,40.7450781 42.6660015,40.7450781 C43.4716007,40.7450781 44.1246679,40.0920109 44.1246679,39.2864116 L44.1246679,25.2444464 C44.1246679,25.0621133 44.0904831,24.8813964 44.023885,24.7116611 C43.7296358,23.9617227 42.8831545,23.5923137 42.1332162,23.8865629 L31.7461278,27.9620879 C31.236922,28.1618822 30.6947713,28.2644367 30.1477719,28.2644367 L23.4745229,28.2644367 Z" id="Rectangle-8" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <path d="M28.6013078,36.9981423 L34.8578439,44.1683249" id="Line-5" stroke="#0D9B70" stroke-width="2.91733288" stroke-linecap="round"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-Property"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-Property">
+							 <span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                                Property
+                        </div>
+                        <span></span>
+                    </div>
+                    <div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuDocument();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="53px" height="45px" viewBox="0 0 53 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 23</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-753.000000, -555.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-6" transform="translate(348.391237, 105.208352)">
+                                                    <g id="Group-23" transform="translate(0.000000, 0.915031)">
+                                                        <path d="M4.34567924,18.933645 L5.36734701,19.9553128 L4.88534027,20.899895 C4.67559928,21.3109217 4.48832204,21.7323584 4.324374,22.1626712 L3.96649006,23.1020057 L2.61908771,23.1020057 C2.04365969,23.1020057 1.57718311,23.5684823 1.57718311,24.1439103 L1.57718311,29.2432909 C1.57718311,29.8187189 2.04365969,30.2851955 2.61908771,30.2851955 L3.96649006,30.2851955 L4.324374,31.22453 C4.48832204,31.6548428 4.67559928,32.0762795 4.88534027,32.4873062 L5.36734701,33.4318884 L4.34567924,34.4535562 C3.93879019,34.8604453 3.93879019,35.5201428 4.34567924,35.9270318 L7.95148584,39.5328384 C8.3583749,39.9397275 9.0180724,39.9397275 9.42496146,39.5328384 L10.6488671,38.3089328 L11.5593192,38.7041684 C11.901961,38.8529124 12.2510341,38.9880132 12.605765,39.1090692 L13.5933222,39.4460843 L13.5933222,41.25943 C13.5933222,41.834858 14.0597987,42.3013346 14.6352268,42.3013346 L19.7346074,42.3013346 C20.3100354,42.3013346 20.776512,41.834858 20.776512,41.25943 L20.776512,39.4460843 L21.7640691,39.1090692 C22.1188001,38.9880132 22.4678731,38.8529124 22.8105149,38.7041684 L23.7209671,38.3089328 L24.9448727,39.5328384 C25.3517617,39.9397275 26.0114592,39.9397275 26.4183483,39.5328384 L30.0241549,35.9270318 C30.4310439,35.5201428 30.4310439,34.8604453 30.0241549,34.4535562 L29.0024871,33.4318884 L29.4844938,32.4873062 C29.6942348,32.0762795 29.8815121,31.6548428 30.0454601,31.22453 L30.4033441,30.2851955 L31.7507464,30.2851955 C32.3261744,30.2851955 32.792651,29.8187189 32.792651,29.2432909 L32.792651,24.1439103 C32.792651,23.5684823 32.3261744,23.1020057 31.7507464,23.1020057 L30.4033441,23.1020057 L30.0454601,22.1626712 C29.8815121,21.7323584 29.6942348,21.3109217 29.4844938,20.899895 L29.0024871,19.9553128 L30.0241549,18.933645 C30.4310439,18.526756 30.4310439,17.8670584 30.0241549,17.4601694 L26.4183483,13.8543628 C26.0114592,13.4474737 25.3517617,13.4474737 24.9448727,13.8543628 L23.7209671,15.0782684 L22.8105149,14.6830328 C22.4678731,14.5342888 22.1188001,14.399188 21.7640691,14.278132 L20.776512,13.9411169 L20.776512,12.1277713 C20.776512,11.5523432 20.3100354,11.0858667 19.7346074,11.0858667 L14.6352268,11.0858667 C14.0597987,11.0858667 13.5933222,11.5523432 13.5933222,12.1277713 L13.5933222,13.9411169 L12.605765,14.278132 C12.2510341,14.399188 11.901961,14.5342888 11.5593192,14.6830328 L10.6488671,15.0782684 L9.42496146,13.8543628 C9.0180724,13.4474737 8.3583749,13.4474737 7.95148584,13.8543628 L4.34567924,17.4601694 C3.93879019,17.8670584 3.93879019,18.526756 4.34567924,18.933645 Z M17.6759147,31.5655471 C15.2455435,31.5655471 13.2712625,29.6048818 13.2712625,27.181212 C13.2712625,24.7575423 15.2455435,22.796877 17.6759147,22.796877 C20.1062859,22.796877 22.0805669,24.7575423 22.0805669,27.181212 C22.0805669,29.6048818 20.1062859,31.5655471 17.6759147,31.5655471 Z" id="Oval-2" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <path d="M34.9654152,5.94567728 L34.8928897,5.87315175 C34.3373506,5.31761263 34.3373506,4.41690574 34.8928897,3.86136662 L36.9761396,1.7781167 C37.5316787,1.22257758 38.4323856,1.22257758 38.9879247,1.7781167 L39.270423,2.06061498 C39.459004,1.98243262 39.6510728,1.91042541 39.8463461,1.84486232 L39.8463461,1.42254691 C39.8463461,0.636895946 40.4832421,3.66366346e-16 41.2688931,2.22044605e-16 L44.2150533,2.22044605e-16 C45.0007043,7.77228641e-17 45.6376002,0.636895946 45.6376002,1.42254691 L45.6376002,1.84486232 C45.8328736,1.91042541 46.0249423,1.98243262 46.2135234,2.06061498 L46.4960217,1.7781167 C47.0515608,1.22257758 47.9522677,1.22257758 48.5078068,1.7781167 L50.5910567,3.86136662 C51.1465958,4.41690574 51.1465958,5.31761263 50.5910567,5.87315175 L50.5185312,5.94567728 C50.6524394,6.20042133 50.7728842,6.46266704 50.8789799,6.73157317 L50.9466265,6.73157317 C51.7322775,6.73157317 52.3691734,7.36846911 52.3691734,8.15412008 L52.3691734,11.1002804 C52.3691734,11.8859313 51.7322775,12.5228273 50.9466265,12.5228273 L50.8789799,12.5228273 C50.7728842,12.7917334 50.6524394,13.0539791 50.5185312,13.3087232 L50.5910567,13.3812487 C51.1465958,13.9367878 51.1465958,14.8374947 50.5910567,15.3930338 L48.5078068,17.4762837 C47.9522677,18.0318229 47.0515608,18.0318229 46.4960217,17.4762837 L46.2135234,17.1937855 C46.0249423,17.2719678 45.8328736,17.343975 45.6376002,17.4095381 L45.6376002,17.8318535 C45.6376002,18.6175045 45.0007043,19.2544004 44.2150533,19.2544004 L41.2688931,19.2544004 C40.4832421,19.2544004 39.8463461,18.6175045 39.8463461,17.8318535 L39.8463461,17.4095381 C39.6510728,17.343975 39.459004,17.2719678 39.270423,17.1937855 L38.9879247,17.4762837 C38.4323856,18.0318229 37.5316787,18.0318229 36.9761396,17.4762837 L34.8928897,15.3930338 C34.3373506,14.8374947 34.3373506,13.9367878 34.8928897,13.3812487 L34.9654152,13.3087232 C34.831507,13.0539791 34.7110622,12.7917334 34.6049665,12.5228273 L34.5373199,12.5228273 C33.7516689,12.5228273 33.114773,11.8859313 33.114773,11.1002804 L33.114773,8.15412008 C33.114773,7.36846911 33.7516689,6.73157317 34.5373199,6.73157317 L34.6049665,6.73157317 C34.7110622,6.46266704 34.831507,6.20042133 34.9654152,5.94567728 Z M42.7419732,13.7531432 C45.1407892,13.7531432 47.0854138,11.9058956 47.0854138,9.62720022 C47.0854138,7.34850485 45.1407892,5.50125727 42.7419732,5.50125727 C40.3431572,5.50125727 38.3985326,7.34850485 38.3985326,9.62720022 C38.3985326,11.9058956 40.3431572,13.7531432 42.7419732,13.7531432 Z" id="Oval-2" fill="#0D9B70"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-Document"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-Document">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                                Document
+                        </div>
+						<span></span>
+                    </div>
+					<div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuTransaction();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="53px" height="45px" viewBox="0 0 180 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 23</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-753.000000, -555.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-6" transform="translate(348.391237, 105.208352)">
+                                                    <g id="Group-23" stroke="#0D9B70" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+														<g transform="translate(16.666667, 16.666667)">
+															<path d="M56.7698161,144.256592 L16.6666667,144.256592 C7.46192084,144.256592 -1.64249568e-12,136.794671 -1.72128978e-12,127.589925 L-1.57562852e-12,16.6666667 C-1.57675577e-12,7.46192084 7.46192084,-1.24993434e-10 16.6666667,-1.24995125e-10 L101.944987,-1.29070088e-10 C111.149733,-1.29071779e-10 118.611654,7.46192084 118.611654,16.6666667 L118.611654,54.6875" id="Path-2"></path>
+															<path d="M92.5160071,32.4717554 L26.3097834,32.4717554" id="Path"></path>
+															<path d="M70.2596029,64.307735 L26.3398523,64.307735" id="Path"></path>
+															<path d="M59.8632987,96.1437145 L26.3398523,96.1437145" id="Path"></path>
+														</g>
+													</g>
+													<path d="M91.0005049,176.795187 C89.3544819,177.453596 87.9142334,177.165547 86.6797162,175.931029 C85.445199,174.696512 85.1571493,173.256264 85.8155585,171.610241 L98.1606691,142.599231 C98.3252714,142.105424 98.6133211,141.652774 99.0248268,141.241268 L148.034916,92.2311793 C149.76324,90.5028552 151.861888,89.6387061 154.330922,89.6387061 C156.799957,89.6387061 158.898605,90.5028552 160.626929,92.2311793 L170.379566,101.983817 C172.10789,103.712141 172.972039,105.810789 172.972039,108.279823 C172.972039,110.748858 172.10789,112.847505 170.379566,114.57583 L121.369477,163.70937 C120.957971,164.038574 120.546472,164.285474 120.134966,164.450076 L91.0005049,176.795187 Z M154.330922,98.5271857 L146.676954,106.181154 L156.429591,115.933792 L164.08356,108.279823 L154.330922,98.5271857 Z M105.938089,146.920019 L98.7779246,163.832821 L115.690726,156.672657 L150.133585,122.229798 L140.380947,112.477161 L105.938089,146.920019 Z" id="" fill="#0D9B70" fill-rule="nonzero" mask="url(#mask-2)" transform="translate(129.222039, 133.388706) rotate(-4.000000) translate(-129.222039, -133.388706) "></path>
+													<path d="M92.3299154,177.083333 L173.37443,177.083333" id="Line-7" stroke="#0D9B70" stroke-width="8.33333333" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-Transaction"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-Transaction">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                                Transaction
+                        </div>
+                    </div>
+
+                    <div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuThirdParty();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 22</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-403.000000, -448.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-9" transform="translate(0.134563, 0.369396)">
+                                                    <g id="Group-25">   <!--Dyah: All Group-25 -->
+                                                        <path d="M5.83466576,0 L26.4915155,8.8817842e-16 C29.7139125,3.15829711e-15 32.3261813,2.61226884 32.3261813,5.83466576 L32.3261813,34.2786685 C32.3261813,37.5010654 29.7139125,40.1133342 26.4915155,40.1133342 L5.83466576,40.1133342 C2.61226884,40.1133342 3.94629807e-16,37.5010654 0,34.2786685 L0,5.83466576 C-3.94629807e-16,2.61226884 2.61226884,2.36830155e-15 5.83466576,1.77635684e-15 Z M24.9793219,7.1630954 L7.10364152,7.1630954 L24.9793219,7.1630954 Z M16.1630906,15.7588099 L7.11176011,15.7588099 L16.1630906,15.7588099 Z M22.0405782,24.3545244 L7.11176011,24.3545244 L22.0405782,24.3545244 Z" id="Path" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <polyline id="Path-4" stroke="#F9F9F9" stroke-width="10.3727391" stroke-linecap="round" stroke-linejoin="round" points="20.0946532 30.5758144 29.0167004 38.4063839 41.9366676 24.7507807"></polyline>
+                                                        <polyline id="Path-4" stroke="#0D9B70" stroke-width="5.18636956" stroke-linecap="round" stroke-linejoin="round" points="20.0946532 30.5758144 29.0167004 38.4063839 41.9366676 24.7507807"></polyline>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-ThirdParty"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-ThirdParty">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                            Third Party
+                        </div>
+                        <span></span>
+                    </div>
+                    <div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuBCCC();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 22</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-403.000000, -448.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-9" transform="translate(0.134563, 0.369396)">
+                                                    <g id="Group-25">   <!--Dyah: All Group-25 -->
+                                                        <path d="M5.83466576,0 L26.4915155,8.8817842e-16 C29.7139125,3.15829711e-15 32.3261813,2.61226884 32.3261813,5.83466576 L32.3261813,34.2786685 C32.3261813,37.5010654 29.7139125,40.1133342 26.4915155,40.1133342 L5.83466576,40.1133342 C2.61226884,40.1133342 3.94629807e-16,37.5010654 0,34.2786685 L0,5.83466576 C-3.94629807e-16,2.61226884 2.61226884,2.36830155e-15 5.83466576,1.77635684e-15 Z M24.9793219,7.1630954 L7.10364152,7.1630954 L24.9793219,7.1630954 Z M16.1630906,15.7588099 L7.11176011,15.7588099 L16.1630906,15.7588099 Z M22.0405782,24.3545244 L7.11176011,24.3545244 L22.0405782,24.3545244 Z" id="Path" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <polyline id="Path-4" stroke="#F9F9F9" stroke-width="10.3727391" stroke-linecap="round" stroke-linejoin="round" points="20.0946532 30.5758144 29.0167004 38.4063839 41.9366676 24.7507807"></polyline>
+                                                        <polyline id="Path-4" stroke="#0D9B70" stroke-width="5.18636956" stroke-linecap="round" stroke-linejoin="round" points="20.0946532 30.5758144 29.0167004 38.4063839 41.9366676 24.7507807"></polyline>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-BCCC"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-BCCC">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                            BCCC
+                        </div>
+                        <span></span>
+                    </div>
+                    <div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuPropertyType();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 22</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-403.000000, -448.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-9" transform="translate(0.134563, 0.369396)">
+                                                    <g id="Group-25">   <!--Dyah: All Group-25 -->
+                                                        <path d="M5.83466576,0 L26.4915155,8.8817842e-16 C29.7139125,3.15829711e-15 32.3261813,2.61226884 32.3261813,5.83466576 L32.3261813,34.2786685 C32.3261813,37.5010654 29.7139125,40.1133342 26.4915155,40.1133342 L5.83466576,40.1133342 C2.61226884,40.1133342 3.94629807e-16,37.5010654 0,34.2786685 L0,5.83466576 C-3.94629807e-16,2.61226884 2.61226884,2.36830155e-15 5.83466576,1.77635684e-15 Z M24.9793219,7.1630954 L7.10364152,7.1630954 L24.9793219,7.1630954 Z M16.1630906,15.7588099 L7.11176011,15.7588099 L16.1630906,15.7588099 Z M22.0405782,24.3545244 L7.11176011,24.3545244 L22.0405782,24.3545244 Z" id="Path" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <polyline id="Path-4" stroke="#F9F9F9" stroke-width="10.3727391" stroke-linecap="round" stroke-linejoin="round" points="20.0946532 30.5758144 29.0167004 38.4063839 41.9366676 24.7507807"></polyline>
+                                                        <polyline id="Path-4" stroke="#0D9B70" stroke-width="5.18636956" stroke-linecap="round" stroke-linejoin="round" points="20.0946532 30.5758144 29.0167004 38.4063839 41.9366676 24.7507807"></polyline>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-PropertyType"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-PropertyType">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                            Property Type
+                        </div>
+                    </div>
+                    
+					<div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuLocationType();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="52px" height="55px" viewBox="0 0 52 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 26</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-755.000000, -448.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-10" transform="translate(352.037904, 0.370048)">
+                                                    <g id="Group-26">
+                                                        <path d="M5.83466576,0 L26.1216508,0 C29.3440477,-3.45400811e-15 31.9563165,2.61226884 31.9563165,5.83466576 L31.9563165,35.5853907 C31.9563165,38.8077877 29.3440477,41.4200565 26.1216508,41.4200565 L5.83466576,41.4200565 C2.61226884,41.4200565 1.28280823e-15,38.8077877 8.8817842e-16,35.5853907 L8.8817842e-16,5.83466576 C4.93548613e-16,2.61226884 2.61226884,-1.18441213e-15 5.83466576,-1.77635684e-15 Z M24.6935173,7.39643866 L7.02236415,7.39643866 L24.6935173,7.39643866 Z M15.9781583,16.2721651 L7.03038985,16.2721651 L15.9781583,16.2721651 Z M21.7883976,25.1478914 L7.03038985,25.1478914 L21.7883976,25.1478914 Z" id="Path" stroke="#0D9B70" stroke-width="2.91733288"></path>
+                                                        <ellipse id="Oval-5" fill="#FFFFFF" cx="34.5473692" cy="37.8949453" rx="14.6826319" ry="14.9817226"></ellipse>
+                                                        <path d="M24.9708618,33.7188768 L24.5519795,33.2999945 C23.8684059,32.6164209 23.8684059,31.5081292 24.5519795,30.8245556 L26.6132953,28.7632398 C27.2968689,28.0796662 28.4051606,28.0796662 29.0887342,28.7632398 L29.4162475,29.0907531 C29.7583763,28.9177655 30.1120289,28.7649298 30.475715,28.6337667 L30.475715,28.1887336 C30.475715,27.2220145 31.2593956,26.4383339 32.2261146,26.4383339 L35.1412554,26.4383339 C36.1079744,26.4383339 36.891655,27.2220145 36.891655,28.1887336 L36.891655,28.6337667 C37.255341,28.7649298 37.6089937,28.9177655 37.9511225,29.0907531 L38.2786358,28.7632398 C38.9622094,28.0796662 40.0705011,28.0796662 40.7540747,28.7632398 L42.8153905,30.8245556 C43.498964,31.5081292 43.498964,32.6164209 42.8153905,33.2999945 L42.3965081,33.7188768 C42.5412928,34.0328368 42.6702584,34.3558929 42.7823565,34.6869753 L43.3898967,34.6869753 C44.3566157,34.6869753 45.1402963,35.4706559 45.1402963,36.4373749 L45.1402963,39.3525157 C45.1402963,40.3192347 44.3566157,41.1029153 43.3898967,41.1029153 L42.7823565,41.1029153 C42.6702584,41.4339977 42.5412928,41.7570538 42.3965081,42.0710138 L42.8153905,42.4898961 C43.498964,43.1734697 43.498964,44.2817614 42.8153905,44.965335 L40.7540747,47.0266508 C40.0705011,47.7102244 38.9622094,47.7102244 38.2786358,47.0266508 L37.9511225,46.6991375 C37.6089937,46.8721251 37.255341,47.0249609 36.891655,47.1561239 L36.891655,47.6011571 C36.891655,48.5678761 36.1079744,49.3515567 35.1412554,49.3515567 L32.2261146,49.3515567 C31.2593956,49.3515567 30.475715,48.5678761 30.475715,47.6011571 L30.475715,47.1561239 C30.1120289,47.0249609 29.7583763,46.8721251 29.4162475,46.6991375 L29.0887342,47.0266508 C28.4051606,47.7102244 27.2968689,47.7102244 26.6132953,47.0266508 L24.5519795,44.965335 C23.8684059,44.2817614 23.8684059,43.1734697 24.5519795,42.4898961 L24.9708618,42.0710138 C24.8260771,41.7570538 24.6971116,41.4339977 24.5850134,41.1029153 L23.9774732,41.1029153 C23.0107542,41.1029153 22.2270736,40.3192347 22.2270736,39.3525157 L22.2270736,36.4373749 C22.2270736,35.4706559 23.0107542,34.6869753 23.9774732,34.6869753 L24.5850134,34.6869753 C24.6971116,34.3558929 24.8260771,34.0328368 24.9708618,33.7188768 Z M33.683685,42.8049216 C36.3412543,42.8049216 38.49564,40.6066503 38.49564,37.8949453 C38.49564,35.1832403 36.3412543,32.984969 33.683685,32.984969 C31.0261156,32.984969 28.87173,35.1832403 28.87173,37.8949453 C28.87173,40.6066503 31.0261156,42.8049216 33.683685,42.8049216 Z" id="Oval-2" stroke="#0D9B70" stroke-width="2.91733288" fill="#F9F9F9" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-LocationType"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-LocationType">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                                Location Type
+                        </div>
+						<span></span>
+                    </div>
+					<div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuRegion();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="52px" height="49px" viewBox="0 0 52 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 24</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-404.000000, -555.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-8" transform="translate(0.134563, 105.208352)">
+                                                    <g id="Group-24" transform="translate(0.000000, 0.915031)">
+                                                        <path d="M21.7374243,13.1640165 L21.7374243,7.32034611 L36.2036525,7.32034611 C37.8223107,7.32034611 39.1344924,6.00816442 39.1344924,4.38950627 C39.1344924,2.77084813 37.8223107,1.45866644 36.2036525,1.45866644 L4.38950627,1.45866644 C2.77084813,1.45866644 1.45866644,2.77084813 1.45866644,4.38950627 C1.45866644,6.00816442 2.77084813,7.32034611 4.38950627,7.32034611 L18.8557345,7.32034611 L18.8557345,13.1640165 L5.83466576,13.1640165 C3.41786807,13.1640165 1.45866644,15.1232181 1.45866644,17.5400158 L1.45866644,38.060397 C1.45866644,40.4771947 3.41786807,42.4363963 5.83466576,42.4363963 L34.7584931,42.4363963 C37.1752907,42.4363963 39.1344924,40.4771947 39.1344924,38.060397 L39.1344924,17.5400158 C39.1344924,15.1232181 37.1752907,13.1640165 34.7584931,13.1640165 L21.7374243,13.1640165 Z" id="Rectangle-7" stroke="#0D9B70" stroke-width="2.91733288" transform="translate(20.296579, 21.947531) scale(1, -1) translate(-20.296579, -21.947531) "></path>
+                                                        <rect id="Path" fill="#FFFFFF" x="29.3652638" y="17.5580251" width="19.8647373" height="29.8486427" rx="5.83466576"></rect>
+                                                        <rect id="Path" stroke="#0D9B70" stroke-width="2.91733288" fill="#FFFFFF" x="31.9563165" y="20.1917289" width="17.2736846" height="26.3370376" rx="5.83466576"></rect>
+                                                        <ellipse id="Oval" fill="#0D9B70" cx="40.755561" cy="38.6951861" rx="1.79380571" ry="1.82333337"></ellipse>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-Region"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-Region">
+							<span></span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                                Region
+                        </div>
+						<span></span>
+                    </div>
+					<div class="task-received-section__task-info__info-row__item" onclick="GoToRequestForMyApprovalMenuCity();">
+                        <div class="task-received-section__task-info__info-row__item__img">
+                            <svg width="52px" height="49px" viewBox="0 0 52 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Group 24</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="rev.v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="ver.1-02.01.dashboard_dropdown_create" transform="translate(-404.000000, -555.000000)">
+                                        <g id="chart.graphic.splitted.onecol" transform="translate(316.000000, 93.000000)">
+                                            <g id="Group-13" transform="translate(88.811808, 356.629245)">
+                                                <g id="Group-8" transform="translate(0.134563, 105.208352)">
+                                                    <g id="Group-24" transform="translate(0.000000, 0.915031)">
+                                                        <path d="M21.7374243,13.1640165 L21.7374243,7.32034611 L36.2036525,7.32034611 C37.8223107,7.32034611 39.1344924,6.00816442 39.1344924,4.38950627 C39.1344924,2.77084813 37.8223107,1.45866644 36.2036525,1.45866644 L4.38950627,1.45866644 C2.77084813,1.45866644 1.45866644,2.77084813 1.45866644,4.38950627 C1.45866644,6.00816442 2.77084813,7.32034611 4.38950627,7.32034611 L18.8557345,7.32034611 L18.8557345,13.1640165 L5.83466576,13.1640165 C3.41786807,13.1640165 1.45866644,15.1232181 1.45866644,17.5400158 L1.45866644,38.060397 C1.45866644,40.4771947 3.41786807,42.4363963 5.83466576,42.4363963 L34.7584931,42.4363963 C37.1752907,42.4363963 39.1344924,40.4771947 39.1344924,38.060397 L39.1344924,17.5400158 C39.1344924,15.1232181 37.1752907,13.1640165 34.7584931,13.1640165 L21.7374243,13.1640165 Z" id="Rectangle-7" stroke="#0D9B70" stroke-width="2.91733288" transform="translate(20.296579, 21.947531) scale(1, -1) translate(-20.296579, -21.947531) "></path>
+                                                        <rect id="Path" fill="#FFFFFF" x="29.3652638" y="17.5580251" width="19.8647373" height="29.8486427" rx="5.83466576"></rect>
+                                                        <rect id="Path" stroke="#0D9B70" stroke-width="2.91733288" fill="#FFFFFF" x="31.9563165" y="20.1917289" width="17.2736846" height="26.3370376" rx="5.83466576"></rect>
+                                                        <ellipse id="Oval" fill="#0D9B70" cx="40.755561" cy="38.6951861" rx="1.79380571" ry="1.82333337"></ellipse>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div id="total-unread-City"></div>
+                        </div>
+                        <div class="task-received-section__task-info__info-row__item__count" id="total-City">
+							<span>5</span>
+						</div>
+                        <div class="task-received-section__task-info__info-row__item__text-info">
+                                City
+                        </div>
+                    </div>
+			</div>
+        </div>
+	</div>
+	<div class="container cres_doc">
+		<div class="section-title cres-title">CRES</div>
+		<div class="container cres-update">
+			<div class="row title">
+				<div class="section-container property">
+					<div class="section-content icon">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 200 200">
+							<defs>
+								<path id="a" d="M0 0h200v200H0z"/>
+							</defs>
+							<g fill="none" fill-rule="evenodd">
+								<mask id="b" fill="#fff">
+									<use xlink:href="#a"/>
+								</mask>
+								<g fill="#0D9B70" fill-rule="nonzero" mask="url(#b)">
+									<path d="M135.657 187.97c1.374 1.288 3.652 1.288 5.026 0l12.093-11.338 12.093 11.337c.707.663 1.61.994 2.513.994.903 0 1.806-.331 2.513-.994l7.303-6.846c.668-.626 1.06-1.473 1.06-2.356V65.06c0-8.392-7.263-15.202-16.216-15.202h-27.288v-37.51c0-1.84-1.61-3.349-3.573-3.349H21.831c-1.963 0-3.573 1.51-3.573 3.35v113.668c0 8.393 7.264 15.203 16.216 15.203H55.05c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35h-7.146c1.766-2.429 2.827-5.374 2.827-8.54v-60.92c0-4.711 4.083-8.54 9.109-8.54s9.109 3.829 9.109 8.54v113.67c0 .22.04.44.079.662.039.147.078.257.117.405.04.073.04.147.079.22.078.148.157.295.235.405.04.037.04.11.079.148.118.184.275.368.432.515l7.303 6.847c1.374 1.288 3.651 1.288 5.026 0l12.093-11.338 12.093 11.338c1.374 1.288 3.652 1.288 5.026 0l12.093-11.338 12.054 11.374zM43.623 65.06v60.957c0 4.712-4.084 8.54-9.11 8.54-5.025 0-9.109-3.828-9.109-8.54V15.663h102.243v34.196H59.84c-8.952 0-16.216 6.81-16.216 15.202zm65.374 115.804l-12.093-11.337a3.664 3.664 0 0 0-2.513-.994c-.903 0-1.806.331-2.513.994l-12.093 11.337-3.73-3.497V65.061c0-.478-.04-.957-.079-1.398 0-.148-.039-.258-.039-.405-.04-.332-.079-.663-.157-.994-.04-.147-.04-.258-.079-.405a7.473 7.473 0 0 0-.353-1.252c0-.036 0-.036-.04-.073a12.125 12.125 0 0 0-.51-1.252c-.039-.11-.117-.22-.157-.368-.157-.294-.275-.589-.47-.883-.08-.11-.119-.221-.197-.368-.197-.332-.432-.7-.668-1.031-.039-.037-.039-.074-.078-.11v-.037h88.697c5.025 0 9.109 3.828 9.109 8.54v112.343l-3.73 3.497-12.093-11.337c-1.375-1.289-3.652-1.289-5.026 0l-12.093 11.337-11.976-11.3c-1.374-1.289-3.651-1.289-5.026 0l-12.093 11.3zM90.7 82.252h66.435c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35H90.7c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35zm0 17.779h48.255c1.964 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35H90.7c-1.963 0-3.573 1.51-3.573 3.35 0 1.877 1.61 3.35 3.573 3.35zm0 16.306h66.435c1.963 0 3.573-1.509 3.573-3.35 0-1.84-1.61-3.349-3.573-3.349H90.7c-1.963 0-3.573 1.51-3.573 3.35 0 1.877 1.61 3.35 3.573 3.35zm6.322 11.89H90.7c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35h6.322c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35zm0 16.307H90.7c-1.963 0-3.573 1.509-3.573 3.35 0 1.84 1.61 3.35 3.573 3.35h6.322c1.963 0 3.573-1.51 3.573-3.35-.04-1.878-1.61-3.35-3.573-3.35zm60.113-16.307h-45.9c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35h45.9c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35zm-14.646 19.62c0-1.84-1.61-3.35-3.573-3.35h-27.68c-1.964 0-3.574 1.51-3.574 3.35s1.61 3.35 3.573 3.35h27.681c1.963 0 3.573-1.51 3.573-3.35z"/>
+								</g>
+							</g>
+						</svg>
+					</div>
+					<div class="section-content title">Property</div>
+				</div>
+				<div class="section-container documents">
+					<div class="section-content icon">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 200 200">
+							<defs>
+								<path id="a" d="M0 0h200v200H0z"/>
+							</defs>
+							<g fill="none" fill-rule="evenodd">
+								<mask id="b" fill="#fff">
+									<use xlink:href="#a"/>
+								</mask>
+								<g fill="#0D9B70" fill-rule="nonzero" mask="url(#b)">
+									<path d="M135.657 187.97c1.374 1.288 3.652 1.288 5.026 0l12.093-11.338 12.093 11.337c.707.663 1.61.994 2.513.994.903 0 1.806-.331 2.513-.994l7.303-6.846c.668-.626 1.06-1.473 1.06-2.356V65.06c0-8.392-7.263-15.202-16.216-15.202h-27.288v-37.51c0-1.84-1.61-3.349-3.573-3.349H21.831c-1.963 0-3.573 1.51-3.573 3.35v113.668c0 8.393 7.264 15.203 16.216 15.203H55.05c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35h-7.146c1.766-2.429 2.827-5.374 2.827-8.54v-60.92c0-4.711 4.083-8.54 9.109-8.54s9.109 3.829 9.109 8.54v113.67c0 .22.04.44.079.662.039.147.078.257.117.405.04.073.04.147.079.22.078.148.157.295.235.405.04.037.04.11.079.148.118.184.275.368.432.515l7.303 6.847c1.374 1.288 3.651 1.288 5.026 0l12.093-11.338 12.093 11.338c1.374 1.288 3.652 1.288 5.026 0l12.093-11.338 12.054 11.374zM43.623 65.06v60.957c0 4.712-4.084 8.54-9.11 8.54-5.025 0-9.109-3.828-9.109-8.54V15.663h102.243v34.196H59.84c-8.952 0-16.216 6.81-16.216 15.202zm65.374 115.804l-12.093-11.337a3.664 3.664 0 0 0-2.513-.994c-.903 0-1.806.331-2.513.994l-12.093 11.337-3.73-3.497V65.061c0-.478-.04-.957-.079-1.398 0-.148-.039-.258-.039-.405-.04-.332-.079-.663-.157-.994-.04-.147-.04-.258-.079-.405a7.473 7.473 0 0 0-.353-1.252c0-.036 0-.036-.04-.073a12.125 12.125 0 0 0-.51-1.252c-.039-.11-.117-.22-.157-.368-.157-.294-.275-.589-.47-.883-.08-.11-.119-.221-.197-.368-.197-.332-.432-.7-.668-1.031-.039-.037-.039-.074-.078-.11v-.037h88.697c5.025 0 9.109 3.828 9.109 8.54v112.343l-3.73 3.497-12.093-11.337c-1.375-1.289-3.652-1.289-5.026 0l-12.093 11.337-11.976-11.3c-1.374-1.289-3.651-1.289-5.026 0l-12.093 11.3zM90.7 82.252h66.435c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35H90.7c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35zm0 17.779h48.255c1.964 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35H90.7c-1.963 0-3.573 1.51-3.573 3.35 0 1.877 1.61 3.35 3.573 3.35zm0 16.306h66.435c1.963 0 3.573-1.509 3.573-3.35 0-1.84-1.61-3.349-3.573-3.349H90.7c-1.963 0-3.573 1.51-3.573 3.35 0 1.877 1.61 3.35 3.573 3.35zm6.322 11.89H90.7c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35h6.322c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35zm0 16.307H90.7c-1.963 0-3.573 1.509-3.573 3.35 0 1.84 1.61 3.35 3.573 3.35h6.322c1.963 0 3.573-1.51 3.573-3.35-.04-1.878-1.61-3.35-3.573-3.35zm60.113-16.307h-45.9c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35h45.9c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35zm-14.646 19.62c0-1.84-1.61-3.35-3.573-3.35h-27.68c-1.964 0-3.574 1.51-3.574 3.35s1.61 3.35 3.573 3.35h27.681c1.963 0 3.573-1.51 3.573-3.35z"/>
+								</g>
+							</g>
+						</svg>
+					</div>
+					<div class="section-content title">Documents</div>
+				</div>
+				<div class="section-container transactions">
+					<div class="section-content icon">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 200 200">
+							<defs>
+								<path id="a" d="M0 0h200v200H0z"/>
+							</defs>
+							<g fill="none" fill-rule="evenodd">
+								<mask id="b" fill="#fff">
+									<use xlink:href="#a"/>
+								</mask>
+								<g fill="#0D9B70" fill-rule="nonzero" mask="url(#b)">
+									<path d="M135.657 187.97c1.374 1.288 3.652 1.288 5.026 0l12.093-11.338 12.093 11.337c.707.663 1.61.994 2.513.994.903 0 1.806-.331 2.513-.994l7.303-6.846c.668-.626 1.06-1.473 1.06-2.356V65.06c0-8.392-7.263-15.202-16.216-15.202h-27.288v-37.51c0-1.84-1.61-3.349-3.573-3.349H21.831c-1.963 0-3.573 1.51-3.573 3.35v113.668c0 8.393 7.264 15.203 16.216 15.203H55.05c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35h-7.146c1.766-2.429 2.827-5.374 2.827-8.54v-60.92c0-4.711 4.083-8.54 9.109-8.54s9.109 3.829 9.109 8.54v113.67c0 .22.04.44.079.662.039.147.078.257.117.405.04.073.04.147.079.22.078.148.157.295.235.405.04.037.04.11.079.148.118.184.275.368.432.515l7.303 6.847c1.374 1.288 3.651 1.288 5.026 0l12.093-11.338 12.093 11.338c1.374 1.288 3.652 1.288 5.026 0l12.093-11.338 12.054 11.374zM43.623 65.06v60.957c0 4.712-4.084 8.54-9.11 8.54-5.025 0-9.109-3.828-9.109-8.54V15.663h102.243v34.196H59.84c-8.952 0-16.216 6.81-16.216 15.202zm65.374 115.804l-12.093-11.337a3.664 3.664 0 0 0-2.513-.994c-.903 0-1.806.331-2.513.994l-12.093 11.337-3.73-3.497V65.061c0-.478-.04-.957-.079-1.398 0-.148-.039-.258-.039-.405-.04-.332-.079-.663-.157-.994-.04-.147-.04-.258-.079-.405a7.473 7.473 0 0 0-.353-1.252c0-.036 0-.036-.04-.073a12.125 12.125 0 0 0-.51-1.252c-.039-.11-.117-.22-.157-.368-.157-.294-.275-.589-.47-.883-.08-.11-.119-.221-.197-.368-.197-.332-.432-.7-.668-1.031-.039-.037-.039-.074-.078-.11v-.037h88.697c5.025 0 9.109 3.828 9.109 8.54v112.343l-3.73 3.497-12.093-11.337c-1.375-1.289-3.652-1.289-5.026 0l-12.093 11.337-11.976-11.3c-1.374-1.289-3.651-1.289-5.026 0l-12.093 11.3zM90.7 82.252h66.435c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35H90.7c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35zm0 17.779h48.255c1.964 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35H90.7c-1.963 0-3.573 1.51-3.573 3.35 0 1.877 1.61 3.35 3.573 3.35zm0 16.306h66.435c1.963 0 3.573-1.509 3.573-3.35 0-1.84-1.61-3.349-3.573-3.349H90.7c-1.963 0-3.573 1.51-3.573 3.35 0 1.877 1.61 3.35 3.573 3.35zm6.322 11.89H90.7c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35h6.322c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35zm0 16.307H90.7c-1.963 0-3.573 1.509-3.573 3.35 0 1.84 1.61 3.35 3.573 3.35h6.322c1.963 0 3.573-1.51 3.573-3.35-.04-1.878-1.61-3.35-3.573-3.35zm60.113-16.307h-45.9c-1.963 0-3.573 1.51-3.573 3.35s1.61 3.35 3.573 3.35h45.9c1.963 0 3.573-1.51 3.573-3.35s-1.61-3.35-3.573-3.35zm-14.646 19.62c0-1.84-1.61-3.35-3.573-3.35h-27.68c-1.964 0-3.574 1.51-3.574 3.35s1.61 3.35 3.573 3.35h27.681c1.963 0 3.573-1.51 3.573-3.35z"/>
+								</g>
+							</g>
+						</svg>
+					</div>
+					<div class="section-content title">Transactions</div>
+				</div>
+			</div>
+			<div class="row content">
+				<div class="section-container property">
+					<div class="section-content content">
+						<div class="section-content content-title">Unit ATM di Pom Bensin Bekasi Unit ATM di Pom Bensin Bekasi Unit ATM di Pom Bensin Bekasi</div>
+						<div class="section-content last-update">Last Updated on 17 April 2019</div>
+					</div>
+				</div>
+				<div class="section-container documents">
+					<div class="section-content content">
+						<div class="section-content content-title">Unit ATM di Pom Bensin Bekasi</div>
+						<div class="section-content last-update">Last Updated on 17 April 2019</div>
+					</div>
+				</div>
+				<div class="section-container transactions">
+					<div class="section-content content">
+						<div class="section-content content-title">Unit ATM di Pom Bensin Bekasi</div>
+						<div class="section-content last-update">Last Updated on 17 April 2019</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function GoToRequestForMyApprovalMenuProperty(){
+			window.parent.$('a[name="Button RFA Property"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuThirdParty(){
+			window.parent.$('a[name="Button RFA Third Party"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuBCCC(){
+			window.parent.$('a[name="Button RFA BCCC"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuPropertyType(){
+			window.parent.$('a[name="Button RFA Property Type"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuLocationType(){
+			window.parent.$('a[name="Button RFA LocationType"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuRegion(){
+			window.parent.$('a[name="Button RFA Region"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuCity(){
+			window.parent.$('a[name="Button RFA City"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuDocument(){
+			window.parent.$('a[name="Button RFA Document"]').trigger('click');
+		}
+		function GoToRequestForMyApprovalMenuTransaction(){
+			window.parent.$('a[name="Button RFA Transaction"]').trigger('click');
+		}
+		function GoToMyRequestPendingMenu(){
+			window.$(".MyLeftMenu").find("#dashboard-menu").removeClass("menu-active");
+			window.parent.$('a[name="Button My Request - Pending"]').trigger('click');
+			window.$(".MyLeftMenu").find("#myrequest-menu").addClass("menu-active");
+		}
+		function GoToMyRequestApprovedMenu(){
+			window.parent.$('a[name="Button My Request - Approved"]').trigger('click');
+		}
+		function GoToMyRequestDistributedMenu(){
+			window.parent.$('a[name="Button My Request Distributed"]').trigger('click');
+		}
+		function GoToMyRequestRejectedMenu(){
+			window.parent.$('a[name="Button My Request Rejected"]').trigger('click');
+		}
+		
+	</script>
+    <script>	
+		function GenerateDashboard(rejected, distributed,pending,approved, unreadRejected, unreadDistributed,unreadPending,unreadApproved){
+			var totalItems = parseInt(rejected) + parseInt(distributed) + parseInt(pending) + parseInt(approved);
+			var data = {
+				labels: ["Pending", "Approved", "Distributed", "Rejected"],	<!--Dyah-->
+				datasets: [{
+					data: [ pending, approved, distributed, rejected],
+					backgroundColor: [
+						'rgba(58, 187, 219, .8)',
+						'rgba(126, 198, 84, .8)',
+						'rgba(27, 224, 187, .8)',
+						'rgba(220, 72, 92, .8)',
+					],
+					borderColor: [
+						'rgba(58, 187, 219, 1)',
+						'rgba(126, 198, 84, 1)',
+						'rgba(27, 224, 187, 1)',
+						'rgba(220, 72, 92, 1)',
+					],
+					borderWidth: 0
+				}]
+			};
+			var options = {
+				cutoutPercentage: 100, //thickness chart
+				legend: {
+					display: false
+				},
+				scales:{
+					xAxes: [{
+						display: false, //this will remove all the x-axis grid lines
+					}],
+					yAxes: [{
+						display: false, //this will remove all the y-axis grid lines
+					}]
+				},
+				maintainAspectRatio: false
+				//,
+				//tooltips: {
+				//	enabled: false
+				//}
+			};
+			var ctx = document.getElementById("myChart");
+			var ctx = document.getElementById("myChart").getContext("2d");
+			var myBarChart = new Chart(ctx, {
+				type: 'bar',
+				data: data,
+				options: options
+			});
+			try
+			{
+				myBarChart.pluginService.register({
+					beforeDraw: function (chart) {
+						var width = chart.chart.width,
+							height = chart.chart.height,
+							ctx = chart.chart.ctx;
+
+						ctx.restore();
+						var fontSize = (height / 114).toFixed(2);
+						ctx.font = fontSize + "em sans-serif";
+						ctx.textBaseline = "middle";
+
+						var text = (totalItems).toString(),
+							textX = Math.round((width - ctx.measureText(text).width) / 2),
+							textY = height / 2;
+
+						ctx.fillText(text, textX, textY);
+						ctx.save();
+					}
+				});
+			}
+			catch(ex){
+			}
+			
+			$('.task-submitted-section__gauge-info__gauge__info__count').text(totalItems.toString());
+			$('.task-submitted-section__gauge-info__pending__count span').text(pending.toString());
+			$('.task-submitted-section__gauge-info__approved__count span').text(approved.toString());
+			$('.task-submitted-section__gauge-info__distributed__count span').text(distributed.toString());
+			$('.task-submitted-section__gauge-info__rejected__count span').text(rejected.toString());
+			
+			if (unreadPending > 0)
+				$('.task-submitted-section__gauge-info__unread-pending__count').text(unreadPending.toString()).addClass("myrequest-unread-items");				
+			if (unreadApproved > 0)
+				$('.task-submitted-section__gauge-info__unread-approved__count').text(unreadApproved.toString()).addClass("myrequest-unread-items");
+			if (unreadDistributed > 0)
+			$('.task-submitted-section__gauge-info__unread-distributed__count').text(unreadDistributed.toString()).addClass("myrequest-unread-items");
+			if (unreadRejected > 0)
+				$('.task-submitted-section__gauge-info__unread-rejected__count').text(unreadRejected.toString()).addClass("myrequest-unread-items");
+		}
+		/*$(".task-submitted-section__gauge-info__pending").click(function() {
+            window.location = $(this).find("a").attr("href");
+            return false;
+        });
+        
+        $(".task-submitted-section__gauge-info__approved").click(function() {
+            window.location = $(this).find("a").attr("href");
+            return false;
+        });
+
+        $(".task-submitted-section__gauge-info__distributed").click(function() {
+            window.location = $(this).find("a").attr("href");
+            return false;
+        });
+
+        $(".task-submitted-section__gauge-info__rejected").click(function() {
+            window.location = $(this).find("a").attr("href");
+            return false;
+        });
+
+        $(".task-received-section__task-info__info-row__item").click(function() {
+            window.location = $(this).find("a").attr("href");
+            return false;
+        });*/
+		function RequestForMyApproval(Property, ThirdParty, BCCC, PropertyType, Region, LocationType, Document, Transaction, City, unreadProperty, unreadBCCC, unreadThirdParty, unreadPropertyType, unreadRegion, unreadDocument, unreadTransaction, unreadLocationType, unreadCity){
+			$('#total-Property span').text(Property.toString());
+			$('#total-ThirdParty span').text(ThirdParty.toString());
+			$('#total-BCCC span').text(BCCC.toString());
+			$('#total-PropertyType span').text(PropertyType.toString());
+			$('#total-Region span').text(Region.toString());
+			$('#total-LocationType span').text(LocationType.toString());
+			$('#total-Document span').text(Document.toString());
+			$('#total-Transaction span').text(Transaction.toString());
+			$('#total-City span').text(City.toString());
+			
+			if (unreadProperty > 0)
+				$('#total-unread-Property').text(unreadProperty.toString()).addClass("unread-task");
+			if (unreadThirdParty > 0)
+				$('#total-unread-ThirdParty').text(unreadThirdParty.toString()).addClass("unread-task");
+			if (unreadBCCC > 0)
+				$('#total-unread-BCCC').text(unreadBCCC.toString()).addClass("unread-task");
+			if (unreadPropertyType > 0)
+				$('#total-unread-PropertyType').text(unreadPropertyType.toString()).addClass("unread-task");
+			if (unreadDocument > 0)
+				$('#total-unread-Document').text(unreadDocument.toString()).addClass("unread-task");
+			if (unreadTransaction > 0)
+				$('#total-unread-Transaction').text(unreadTransaction.toString()).addClass("unread-task");
+			if (unreadLocationType > 0)
+				$('#total-unread-LocationType').text(unreadLocationType.toString()).addClass("unread-task");
+			if (unreadRegion > 0)
+				$('#total-unread-Region').text(unreadRegion.toString()).addClass("unread-task");
+			if (unreadCity > 0)
+				$('#total-unread-City').text(unreadCity.toString()).addClass("unread-task");
+		}
+    </script>
+	<script>
+		function GetURLQuery(parameterName){
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++)
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == parameterName)
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+		function InitializeDashboard(){
+			var rejected = GetURLQuery("rejected");
+			var distributed = GetURLQuery("distributed");
+			var pending = GetURLQuery("pending");
+			var approved = GetURLQuery("approved");
+			
+			var unreadRejected = GetURLQuery("unreadRejected");
+			var unreadDistributed = GetURLQuery("unreadDistributed");
+			var unreadPending = GetURLQuery("unreadPending");
+			var unreadApproved = GetURLQuery("unreadApproved");
+			
+			var Property = GetURLQuery("Property");
+			var ThirdParty = GetURLQuery("ThirdParty");
+			var BCCC = GetURLQuery("BCCC");
+			var PropertyType = GetURLQuery("PropertyType");
+			var Region = GetURLQuery("Region");
+			var LocationType = GetURLQuery("LocationType");
+			var Document = GetURLQuery("Document");
+			var Transaction = GetURLQuery("Transaction");
+			var City = GetURLQuery("City");
+			
+			var unreadProperty = GetURLQuery("unreadProperty");
+			var unreadThirdParty = GetURLQuery("unreadThirdParty");
+			var unreadMOABCCC = GetURLQuery("unreadBCCC");
+			var unreadPropertyType = GetURLQuery("unreadPropertyType");
+			var unreadDocument = GetURLQuery("unreadDocument");
+			var unreadTransaction = GetURLQuery("unreadTransaction");
+			var unreadLocationType = GetURLQuery("unreadLocationType");
+			var unreadRegion = GetURLQuery("unreadRegion");
+			var unreadCity = GetURLQuery("unreadCity");
+			
+			GenerateDashboard(rejected, distributed, pending, approved, unreadRejected, unreadDistributed, unreadPending, unreadApproved);
+			RequestForMyApproval(Property, ThirdParty,BCCC,PropertyType, Region,LocationType,Document,Transaction, City, unreadProperty, unreadMOABCCC,unreadThirdParty,unreadPropertyType, unreadRegion, unreadDocument,unreadTransaction, unreadLocationType, unreadCity);
+		}
+		InitializeDashboard();
+	</script>
+</body>
+</html>

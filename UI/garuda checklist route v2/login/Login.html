@@ -1,0 +1,232 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="../assets/images/favicon-garuda-indonesia.ico">
+		<style>
+			body {
+				font-family: fantasy;
+			}
+			body a, .toggle-password {
+				cursor: pointer;
+			}
+			.login-wrapper {
+				height: 100%;
+			}
+			.login-page-image {
+				height: 40%;
+				background-image: url(../assets/images/logo-garuda-indonesia.jpg);
+				background-size: 55%;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center -40px;
+			}
+			.title {
+				position: absolute;
+				top: 37%;
+			}
+			.title_big {
+				font-size: 45px;
+				margin: 0 515px;
+				color: rgb(50,52,103);
+			}
+			.title .description {
+				font-size: 35px;
+				margin: 0 455px;
+				color: rgb(21,139,153);
+			}
+			.form-login-container {
+				height: auto;
+				margin: 0 400px;
+				margin-top: 100px;
+			}
+			.form-login-container .container {
+				/*border: 1px solid #ccc;*/
+				border-radius: 10px;
+			}
+			.form-login-container__title {
+				color: #383838;
+				font-size: 18px;
+				font-family: sans-serif;
+				letter-spacing: .3px;
+			}
+			.textbox .textfield {
+				padding: 20px 0;
+				display: inline-block;
+				position: relative;
+				width: 100%;
+			}
+			.textfield__input {
+				padding: 4px 0;
+				border: none;
+				border-bottom: 1px solid rgba(0, 0, 0, .12);
+				outline: none;
+				width: 100%;
+			}
+			.textfield__label {
+				position: absolute;
+				font-size: 14px;
+				margin-top: -20px;
+				display: block;
+				color: rgba(0,0,0,.26);
+				letter-spacing: .5px;
+				transition: all .2s;
+			}
+			.textbox .textfield__label:after {
+				content: "";
+				background: rgb(50,52,103);
+				height: 2px;
+				width: 10px;
+				position: absolute;
+				top: 18px;
+				left: 45%;
+				visibility: hidden;
+				transition: all .2s;
+			}
+			.textbox.edited .textfield__label:after {
+				width: 10px;
+				top: 38px;
+			}
+			.textbox.focus .textfield__label:after {
+				width: 550px;
+				left: 0;
+				top: 38px;
+				visibility: visible;
+			}
+			.textbox.focus .textfield__label, .textbox.edited .textfield__label {
+				color: #158b99;
+				font-size: 12px;
+				margin-top: -40px;
+			}
+			.toggle-password {
+				position: absolute;
+				right: 0;
+				bottom: 20px;
+				display: inline-block;
+			}
+			.form-login-container .button {
+				background: rgb(21,139,153);
+				color: #fff;
+				font-family: sans-serif;
+				text-align: center;
+				border-radius: 100px;
+				overflow: hidden;
+				height: 40px;
+				width: 120px;
+			}
+			.form-login-container .button a {
+				position: relative;
+				top: 10px;
+				padding: 10px 30px;
+				color: #fff;
+				text-decoration: none;
+			}
+			
+			@media(min--moz-device-pixel-ratio: 0) {
+				.login-page-image {
+					height: 38%;
+				}
+				.title_big {
+					margin: 0 500px;
+				}
+				.title .description {
+					margin: 0 440px;
+				}
+			}
+		</style>
+		<script type="text/javascript" src="../assets/scripts/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="login-wrapper">
+			<section class="login-page-image">
+				<div class="title">
+					<div class="title_big">Garuda Indonesia</div>
+					<div class="description">Checklist Activity Management</div>
+				</div>
+			</section>
+			<section class="form-login-container">
+				<div class="container">
+					<div class="form-login-container__title">
+						<span>Please enter your User ID and Password</span>
+					</div>
+					<div class="textbox">
+						<div class="textfield">
+							<input id="userName" class="textfield__input"/>
+							<span class="textfield__label">USER ID</span>
+						</div>
+					</div>
+					<div class="textbox">
+						<div class="textfield">
+							<div class="toggle-password show-password">
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+									<style type="text/css">
+										< ![CDATA[ .st0 {
+											fill: #010101;
+										}
+										]]>
+									</style>
+									<path style="fill: #a8a7a7;" class="st0" d="M376.4,158.3L448,86.6L425.4,64l-77.6,77.6C320,127.7,289.5,119,256,119c-81.9,0-145.7,52.2-224,137
+									c34.8,37.4,66.8,72.7,103.3,98.1L64,425.4L86.6,448l76.9-76.9c27,13.7,57,21.9,92.5,21.9c99.9,0,173.4-81.8,224-135.5
+									C452,223.4,417.6,185.7,376.4,158.3z M166.4,256c0-50.4,40.2-91.3,89.6-91.3c19.3,0,37.2,6.2,51.8,16.9l-50.7,50.7
+									c-0.7-2.6-1.1-5.4-1.1-8.3c0-7.9,2.9-15.1,7.6-20.7c-2.5-0.4-5-0.6-7.6-0.6c-28.8,0-52.3,23.9-52.3,53.3c0,8.6,2,16.8,5.6,24
+									L182,307.4C172.2,292.7,166.4,275,166.4,256z M256,347.3c-19.3,0-37.2-6.2-51.8-16.9l27.4-27.4c7.3,4,15.6,6.2,24.4,6.2
+									c28.8,0,52.3-23.9,52.3-53.3c0-2.3-0.2-4.6-0.4-6.9c-5.5,4.3-12.3,6.9-19.8,6.9c-2.9,0-5.6-0.4-8.3-1.1l50.3-50.3
+									c9.8,14.6,15.6,32.3,15.6,51.4C345.6,306.4,305.4,347.3,256,347.3z" />
+								</svg>
+							</div>
+							<div class="toggle-password hide-password" style="display: none">
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+									<g>
+										<path style="fill: #a8a7a7;" d="M256,128c-81.9,0-145.7,48.8-224,128c67.4,67.7,124,128,224,128c99.9,0,173.4-76.4,224-126.6
+										C428.2,198.6,354.8,128,256,128z M256,347.3c-49.4,0-89.6-41-89.6-91.3c0-50.4,40.2-91.3,89.6-91.3s89.6,41,89.6,91.3
+										C345.6,306.4,305.4,347.3,256,347.3z" />
+										<g>
+											<path style="fill: #a8a7a7;" d="M256,224c0-7.9,2.9-15.1,7.6-20.7c-2.5-0.4-5-0.6-7.6-0.6c-28.8,0-52.3,23.9-52.3,53.3c0,29.4,23.5,53.3,52.3,53.3
+											s52.3-23.9,52.3-53.3c0-2.3-0.2-4.6-0.4-6.9c-5.5,4.3-12.3,6.9-19.8,6.9C270.3,256,256,241.7,256,224z"
+											/>
+										</g>
+									</g>
+								</svg>
+							</div>
+							<input id="password" class="textfield__input" type="password"/>
+							<span class="textfield__label">PASSWORD</span>
+						</div>
+					</div>
+					<div class="button">
+						<a id="loginButton" class="button__loginButton" href="../Staff/Dashboard.html">Sign In</a>
+					</div>
+				</div>
+			</section>
+		</div>
+		
+		<script>
+			$(".textfield").click(function(){
+				$(this).find($(".textfield__input")).focus();
+			});
+			$(".textfield__input").on("focus click", function(){
+				$(".textbox").removeClass("focus");
+				$(this).parents(".textbox").addClass("focus");
+			});
+			$(".textfield__input").on('focus blur keyup change', function() {
+				if($(this).val().length>0){
+					$(this).parents(".textbox").addClass("edited");
+				}
+				else {
+					$(this).parents(".textbox").removeClass("edited");
+				}
+			}).blur();
+			$(".textfield__input").on("focusout", function(){
+				$(this).parents(".textbox").removeClass("focus");
+			});
+			
+			$(".toggle-password.show-password").click(function(){
+				$("#password").attr("type", "text");
+				$(this).hide();
+				$(".toggle-password.hide-password").css("display","");
+			});
+			$(".toggle-password.hide-password").click(function(){
+				$("#password").attr("type", "password");
+				$(this).hide();
+				$(".toggle-password.show-password").css("display","");
+			});
+		</script>
+	</body>
+</html>

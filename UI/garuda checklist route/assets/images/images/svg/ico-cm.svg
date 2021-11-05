@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>ico-cm</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="200" height="200"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/product/cm">
+            <g id="Group-2">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask"></g>
+                <g id="Group-24" mask="url(#mask-2)">
+                    <g transform="translate(116.666667, 83.333333)">
+                        <path d="M14.1900612,3.95084761 L44.8333362,3.95084761 C51.7368955,3.95084761 57.3333362,9.54728823 57.3333362,16.4508476 L57.3333362,88.9954314 C57.3333362,95.8989908 51.7368955,101.495431 44.8333362,101.495431 L14.1900612,101.495431 C7.28650179,101.495431 1.69006117,95.8989908 1.69006117,88.9954314 L1.69006117,16.4508476 C1.69006117,9.54728823 7.28650179,3.95084761 14.1900612,3.95084761 Z" id="Path" stroke="#0D9B70" stroke-width="8.33333333" fill="none"></path>
+                        <circle id="Oval" stroke="none" fill="#0D9B70" fill-rule="evenodd" cx="29.1666667" cy="77.0833333" r="6.25"></circle>
+                    </g>
+                </g>
+                <g id="Group" mask="url(#mask-2)" stroke="#0D9B70" stroke-width="8.33333333">
+                    <g transform="translate(14.490763, 17.593757)">
+                        <path d="M138.145367,47.3405288 L138.145367,16.6666667 C138.145367,7.46192084 130.683446,-3.59444217e-11 121.478701,-3.74633657e-11 L16.6666667,-3.47206708e-11 C7.46192084,-3.47189799e-11 -6.08641295e-13,7.46192084 -6.07514039e-13,16.6666667 L-8.31335001e-13,91.4484669 C-8.22032288e-13,100.653213 7.46192084,108.115134 16.6666667,108.115134 L83.3333333,108.115134" id="Path-18" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M83.3333333,130.106235 L10.7645671,130.106235 C4.81946083,130.106235 -7.28065531e-16,134.925696 0,140.870802 L0,140.870802 C7.28065531e-16,146.815908 4.81946083,151.635369 10.7645671,151.635369 L83.3333333,151.635369" id="Path-21" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M69.0726836,109.921102 L69.0726836,130.106235" id="Path-22"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

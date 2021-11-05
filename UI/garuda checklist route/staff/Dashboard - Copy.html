@@ -1,0 +1,230 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="../assets/images/favicon-garuda-indonesia.ico">
+		<link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+		<title>Checklist Activity Management</title>
+		<style>
+			.header__logo__title__description {
+				font-size: 16px;
+				color: #158b99;
+				font-weight: bold;
+				position: relative;
+				bottom: 10px;
+			}
+			body a {
+				cursor: pointer;
+			}
+			.general-menu__ul__li__a .fa-file ~ i {
+				font-size: 10px;
+				position: absolute;
+				top: 15px;
+				left: 25px;
+			}
+		</style>
+		<style>
+			body { margin: 0; font-family: sans-serif; }
+			.container { display: flex; height: 100% }
+			.header {
+				border-right: 1px solid #ccc;
+				max-height: 100%;
+				width: 17.5%;
+				padding: 10px;
+			}
+			.header .logo { text-align: center; }
+			.header .menu-container { margin-top: 20px; overflow: auto; }
+			div[class$='-menu__title'] { padding-left: 20px; }
+			div[class$='-menu__title'] span {
+				font-size: 10px;
+				font-family: "Open-Sans Regular","Segoe UI Regular","Helvetica",Helvetica,sans-serif;
+				font-weight: bold;
+				color: #aaa;
+				letter-spacing: 1px;
+			}
+			div[class$='-menu'] ul {
+				margin: 0;
+				margin-bottom: 10px;
+				padding: 0;
+			}
+			li[class$='-menu__ul__li'] {
+				list-style-type: none;
+				overflow: hidden;
+				height: auto;
+				position: relative;
+				font-size: 1.2rem;
+			}
+			li[class$='-menu__ul__li']:hover a { background: #f9f9f9; }
+			a[class*='-menu__ul__li__a'] {
+				padding-left: 20px;
+				font-size: 14px;
+				font-weight: 700;
+				color: #6b7785;
+				position: relative;
+				display: flex;
+				height: 34px;
+				align-items: center;
+			}
+			a[class*='-menu__ul__li__a'] span { padding-left: 5px; }
+			.menu-active { color: #127d89 !important; }
+			ul li .menu-active:before {
+				content: "";
+				background: #158b99;
+				width: 5px;
+				height: 50px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.body {
+				max-height: 100%;
+				width: 80%;
+				background: #f1f1f1;
+			}
+			.overlayLoader {
+				width: 80%;
+				height: 100%;
+				background-color: #f9f9f9;
+				z-index: 5;
+				position: fixed;
+				visibility: hidden;
+			}
+			.overlayLoader.enabled {
+				visibility: visible;
+			}
+			.overlayLoader .loadMessage {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 100px;
+				height: 100px;
+				overflow: hidden;
+				border-radius: 10px;
+			}
+			.loadMessage:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 50px;
+				height: 100%;
+				background-color: rgba(255,255,255,.3);
+				transform: skewX(-30deg);
+				transition: 1s;
+			}
+			.overlayLoader.enabled .loadMessage:before{
+				left: 150px;
+			}
+			.overlayLoader .loadMessage img { width: 100%; }
+			.loadMessage span { color: transparent; }
+		</style>
+		<script type="text/javascript" src="../assets/scripts/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="logo">
+					<div class="header__logo__title">
+						<img src="../assets/images/logo-garuda-indonesia.jpg" width="240px" onmousedown="return false" />
+						<div class="header__logo__title__description">Checklist Activity Management</div>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="general-menu">
+						<div class="general-menu__title">
+							<span class="general-menu__title__content">Main</span>
+						</div>
+						<ul class="general-menu__ul">
+							<li class="general-menu__ul__li">
+								<a class="general-menu__ul__li__a">
+									<i class="fas fa-tachometer-alt"></i>
+									<span class="general-menu__ul__li__a__content">Dashboard</span>
+								</a>
+							</li>
+							<li class="general-menu__ul__li">
+								<a class="general-menu__ul__li__a">
+									<i class="fas fa-search"></i>
+									<span class="general-menu__ul__li__a__content">Search</span>
+								</a>
+							</li>
+							<li class="general-menu__ul__li">
+								<a class="general-menu__ul__li__a">
+									<i class="far fa-file"></i><i class="fas fa-long-arrow-alt-right"></i>
+									<span class="general-menu__ul__li__a__content">My Request</span>
+								</a>
+							</li>
+							<li class="general-menu__ul__li">
+								<a class="general-menu__ul__li__a">
+									<i class="far fa-file"></i><i class="fas fa-long-arrow-alt-left"></i>
+									<span class="general-menu__ul__li__a__content">Request For My Approval</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="specific-menu">
+						<div class="specific-menu__title">
+							<span class="specific-menu__title__content">Application</span>
+						</div>
+						<ul class="specific-menu__ul">
+							<li class="specific-menu__ul__li">
+								<a class="specific-menu__ul__li__a">
+									<i class="fas fa-cog"></i>
+									<span class="specific-menu__ul__li__a__content">Configuration Setting</span>
+								</a>
+							</li>
+							<li class="specific-menu__ul__li">
+								<a class="specific-menu__ul__li__a">
+									<i class="far fa-envelope"></i>
+									<span class="specific-menu__ul__li__a__content">Email Template</span>
+								</a>
+							</li>
+						</ul>
+						<div class="specific-menu__title">
+							<span class="specific-menu__title__content">Tools</span>
+						</div>
+						<ul class="specific-menu__ul">
+							<li class="specific-menu__ul__li">
+								<a class="specific-menu__ul__li__a">
+									<i class="fas fa-bars"></i>
+									<span class="specific-menu__ul__li__a__content">Menu</span>
+								</a>
+							</li>
+							<li class="specific-menu__ul__li">
+								<a class="specific-menu__ul__li__a">
+									<i class="fas fa-user-cog"></i>
+									<span class="specific-menu__ul__li__a__content">Role</span>
+								</a>
+							</li>
+							<li class="specific-menu__ul__li">
+								<a class="specific-menu__ul__li__a">
+									<i class="far fa-address-card"></i>
+									<span class="specific-menu__ul__li__a__content">Menu Role</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="body">
+				<div class="overlayLoader enabled">
+					<div class="loaderDiv">
+						<div class="loadMessage">
+							<img src="../assets/images/icon-garuda-indonesia.png" onmousedown="return false">
+							<span>Loading</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$(".general-menu__ul__li").click(function(){
+				$("a").removeClass("menu-active");
+				$(this).find($(".general-menu__ul__li__a")).addClass("menu-active");
+			});
+			$(".specific-menu__ul__li").click(function(){
+				$("a").removeClass("menu-active");
+				$(this).find($(".specific-menu__ul__li__a")).addClass("menu-active");
+			});
+		</script>
+	</body>
+</html>

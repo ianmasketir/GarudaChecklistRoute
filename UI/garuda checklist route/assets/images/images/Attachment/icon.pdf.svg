@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="65px" viewBox="0 0 50 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>icon.pdf</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icon.pdf" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-7" transform="translate(7.200000, 9.599999)">
+            <path d="M7.19999957,1.32575107e-14 L23.7320787,4.36983756e-14 L37.3333311,14.415087 L37.3333311,38.3999977 C37.3333311,42.3764477 34.1097815,45.5999973 30.1333315,45.5999973 L7.19999957,45.5999973 C3.22354961,45.5999973 4.86974672e-16,42.3764477 0,38.3999977 L-1.42108547e-14,7.19999957 C-1.46978294e-14,3.22354961 3.22354961,1.61864043e-15 7.19999957,8.8817842e-16 Z" id="Rectangle-2" fill="#D0021B"></path>
+            <path d="M23.7109849,0 L37.3558571,14.3999991 L30.9109845,14.3999991 C26.9345345,14.3999991 23.7109849,11.1764495 23.7109849,7.19999957 L23.7109849,0 Z" id="Rectangle-4" fill="#4B3739"></path>
+        </g>
+        <text id="PDF" font-family="Lato-Bold, Lato" font-size="14.3999991" font-weight="bold" letter-spacing="-0.480000014" fill="#FFFFFF">
+            <tspan x="13.1951993" y="42.7999983">PDF</tspan>
+        </text>
+    </g>
+</svg>
