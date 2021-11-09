@@ -1,0 +1,179 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+		<link rel="stylesheet" href="assets/css/Toolbox.css">
+		<link rel="stylesheet" href="assets/css/Left_menu.css">
+		<script type="text/javascript" src="assets/scripts/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="left-menu">
+			<div class="user-information-all" style="display: none;">
+				<div class="user-information-all-header">
+					<div class="header-wrapper">
+						<div class="header-title">My Profile</div>
+						<a class="toggle-user-information less">
+							<i class="fas fa-caret-down"></i>
+						</a>
+					</div>
+				</div>
+				<div class="user-information-all-body">
+					<div class="user-information-header">
+						<div class="user-information-header__logo">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<div class="header__logo__title__description">User Information</div>
+					</div>
+					<div class="user-information-wrapper">
+						<div class="label">Name</div>
+						<div class="data-label">Taufiq Fitriansyah</div>
+					</div>
+					<div class="user-information-wrapper">
+						<div class="label">NIK</div>
+						<div class="data-label">1601273481</div>
+					</div>
+					<div class="user-information-wrapper">
+						<div class="label">Department</div>
+						<div class="data-label">IT</div>
+					</div>
+				</div>
+				<div class="user-logout">
+					<div class="user-logout-wrapper">
+						<a class="btn-logout" href="../login/Login.html">LOGOUT</a>
+					</div>
+				</div>
+			</div>
+			<div class="header">
+				<div class="logo">
+					<div class="header__logo__title">
+						<img src="assets/images/logo-garuda-indonesia.jpg" onmousedown="return false" width="240px">
+						<div class="description">Checklist Activity Management</div>
+					</div>
+				</div>
+				<div class="button-header">
+					<div class="main-button">
+						<a><i class="fa fa-plus"></i>Create New</a>
+					</div>
+					<div class="button-header-wrapper">
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="general-menu">
+					<div class="general-menu__title">
+						<span class="general-menu__title__content">Main</span>
+					</div>
+					<ul class="general-menu__ul">
+						<li class="general-menu__ul__li">
+							<a class="general-menu__ul__li__a menu-active">
+								<i class="fas fa-tachometer-alt"></i>
+								<span class="general-menu__ul__li__a__content">Dashboard</span>
+							</a>
+						</li>
+						<li class="general-menu__ul__li">
+							<a class="general-menu__ul__li__a">
+								<i class="fas fa-search"></i>
+								<span class="general-menu__ul__li__a__content">Search</span>
+							</a>
+						</li>
+						<li class="general-menu__ul__li">
+							<a class="general-menu__ul__li__a">
+								<i class="fas fa-sign-in-alt"></i>
+								<span class="general-menu__ul__li__a__content">My Route Activity Request</span>
+							</a>
+						</li>
+						<li class="general-menu__ul__li">
+							<a class="general-menu__ul__li__a">
+								<i class="fas fa-sign-out-alt" style="transform: scaleX(-1);"></i>
+								<span class="general-menu__ul__li__a__content">Route For My Review</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="specific-menu">
+					<div class="specific-menu__title">
+						<span class="specific-menu__title__content">Application</span>
+					</div>
+					<ul class="specific-menu__ul">
+						<li class="specific-menu__ul__li">
+							<a class="specific-menu__ul__li__a">
+								<i class="fas fa-cog"></i>
+								<span class="specific-menu__ul__li__a__content">Configuration Setting</span>
+							</a>
+						</li>
+						<li class="specific-menu__ul__li">
+							<a class="specific-menu__ul__li__a">
+								<i class="far fa-envelope"></i>
+								<span class="specific-menu__ul__li__a__content">Email Template</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tools-menu">
+					<div class="tools-menu__title">
+						<span class="tools-menu__title__content">Tools</span>
+					</div>
+					<ul class="tools-menu__ul">
+						<li class="tools-menu__ul__li">
+							<a class="tools-menu__ul__li__a">
+								<i class="fas fa-bars"></i>
+								<span class="tools-menu__ul__li__a__content">Menu</span>
+							</a>
+						</li>
+						<li class="tools-menu__ul__li">
+							<a class="tools-menu__ul__li__a">
+								<i class="fas fa-user-cog"></i>
+								<span class="tools-menu__ul__li__a__content">Role</span>
+							</a>
+						</li>
+						<li class="tools-menu__ul__li">
+							<a class="tools-menu__ul__li__a">
+								<i class="far fa-address-card"></i>
+								<span class="tools-menu__ul__li__a__content">Menu Role</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="user-information">
+				<div class="user-name-container">
+					<div class="user-name-container-wrapper">
+						<div class="name-initial">
+							<span>T</span>
+						</div>
+						<div class="name">
+							<div class="name-label">My Profile</div>
+							<div class="user-login-name">Taufiq Fitriansyah</div>
+						</div>
+						<a class="toggle-user-information more">
+							<i class="fas fa-caret-up"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="left-menu__controller">
+				<div class="button-wrapper">
+					<a class="btn-minimize">
+						<i class="fas fa-chevron-circle-left"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$(".left-menu .toggle-user-information.more").click(function(){
+				$(".left-menu .user-information-all").show();
+			});
+			$(".left-menu .toggle-user-information.less").click(function(){
+				$(".left-menu .user-information-all").hide();
+			});
+			$(".left-menu .btn-minimize").click(function(){
+				$(".left-menu").toggleClass("minimize");
+				$(".left-menu .btn-minimize i").toggleClass("fa-chevron-circle-left fa-chevron-circle-right");
+			});
+			$(".left-menu .menu-container ul li a").click(function(){
+				$(".left-menu .menu-container ul li a").removeClass("menu-active");
+				$(this).addClass("menu-active");
+			});
+		</script>
+	</body>
+</html>

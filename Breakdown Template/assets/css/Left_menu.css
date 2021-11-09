@@ -1,0 +1,189 @@
+/* LEFT MENU STYLE: Menu, Logo, etc */
+body { margin: 0; }
+.left-menu {
+	width: 18%; /* adjustable */
+	height: 100%;
+	position: fixed;
+	float: left;
+	border-right: 1px solid #ccc;
+	font-family: sans-serif;
+}
+.left-menu.minimize {
+	left: -17.3%;
+}
+.left-menu a {
+	cursor: pointer;
+	text-decoration: none;
+}
+.left-menu .header { padding-top: 10px; }
+.left-menu.minimize .header { display: none; }
+.left-menu .header .description {
+	color: #158b99;
+	font-weight: bold;
+	position: relative;
+	bottom: 10px; /* adjustable depend on the logo size*/
+}
+.left-menu .header__logo__title { text-align: center; }
+.left-menu .button-header .main-button {
+	background: #158b99;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	border-radius: 100px;
+	margin: 10px 45px 0;
+}
+.left-menu .button-header .main-button:hover { background: #106f7a; }
+.left-menu .button-header a {
+	width: 100%;
+	padding: 10px 20px;
+	text-align: center;
+}
+.left-menu .button-header a i { margin-right: 10px; }
+.left-menu__controller {
+	position: absolute;
+	right: -9px;
+	top: 50%; /* adjustable depend on the logo size*/
+	font-size: 18px;
+}
+.left-menu__controller .button-wrapper {
+	background: #fff;
+	border-radius: 50%;
+}
+.left-menu__controller a {
+	display: inline-block;
+	color: #158b99;
+}
+.left-menu__controller a:hover {
+	color: #106f7a;
+}
+.left-menu .menu-container {
+	margin-top: 20px; /* adjustable depend on the logo size*/
+	overflow: auto;
+	height: 395px; /* adjustable depend on the logo size*/
+	/*padding-left: 10px;*/
+}
+.left-menu .menu-container > div:not(:last-child) { margin-bottom: 5px; }
+.left-menu .menu-container div[class*='__title'], .left-menu .menu-container li { padding-left: 10px; }
+div[class$="-menu__title"] span {
+	font-size: 10px;
+	font-family: "Open-Sans Regular","Segoe UI Regular","Helvetica",Helvetica,sans-serif;
+	font-weight: bold;
+	color: #aaa;
+	letter-spacing: 1;
+}
+.left-menu a[class*="-menu__ul__li__a"] span { padding-left: 5px; }
+.left-menu a[class*="-menu__ul__li__a"] {
+	font-size: 14px;
+	font-weight: 700;
+	color: #6b7785;
+	display: flex;
+	align-items: center;
+	height: 32px;
+}
+.left-menu li[class$="-menu__ul__li"]:hover a { background: #f9f9f9; }
+.left-menu .menu-active { color: #127d89 !important; }
+.left-menu ul li .menu-active::before {
+	content: "";
+	background: #158b99;
+	width: 5px;
+	height: 50px;
+	position: absolute;
+	left: 0;
+}
+.left-menu .user-information {
+	padding: 10px;
+	padding-top: 7px;
+	border-top: 1px solid #ccc;
+}
+.left-menu .user-name-container-wrapper {
+	display: flex;
+	align-items: center;
+}
+.left-menu .user-name-container .name-initial {
+	background: #158b99;
+	color: #fff;
+	border-radius: 50%;
+	width: 50px;
+	height: 35px;
+	text-align: center;
+	font-size: 25px;
+}
+.left-menu .user-name-container .name-initial span {
+	position: relative;
+	top: 4px;
+}
+.left-menu .name {
+	font-size: 12px;
+	font-weight: bold;
+	margin-left: 10px;
+	width: 100%;
+}
+.left-menu .name-label {
+	color: #9b9b9b;
+	font-size: 9px;
+	margin-bottom: 2px;
+}
+.left-menu .toggle-user-information {
+	border: 2px solid #158b99;
+	color: #158b99;
+	padding: 0 2px;
+	border-radius: 4px;
+}
+.toggle-user-information:hover i { color: #106f7a; }
+
+/* USER LOGIN INFORMATION */
+.left-menu .user-information-all { height: 100%; }
+.left-menu .user-information-all-header {
+	border-bottom: 1px solid #ccc;
+	padding: 5px 0;
+}
+.left-menu .header-wrapper {
+	display: flex;
+	align-items: center;
+}
+.left-menu .header-title {
+	padding-left: 90px;
+	padding-right: 65px;
+	color: #9b9b9b;
+	font-size: 14px;
+}
+.left-menu .user-information-header {
+	text-align: center;
+	color: #158b99;
+	margin-top: 20px;
+}
+.left-menu .user-information-header__logo { font-size: 50px; }
+.left-menu .header__logo__title__description {
+	font-weight: bold;
+	margin-top: 5px;
+}
+.left-menu .user-information-all-body {
+	height: 84.6%;
+}
+.left-menu .user-information-wrapper {
+	padding-left: 20px;
+	padding-top: 10px;
+}
+.left-menu .user-information-all .data-label {
+	color: #158b99;
+	text-decoration: underline;
+	/*font-size: 14px;*/
+	font-weight: normal;
+}
+.left-menu .user-information-all .user-logout {
+	border-top: 1px solid #ccc;
+	height: 5%;
+	padding: 10px;
+}
+.left-menu .user-information-all .user-logout-wrapper {
+	background: #158b99;
+	border-radius: 100px;
+	margin: 0 45px;
+}
+.left-menu .user-information-all .user-logout-wrapper:hover { background: #106f7a; }
+.left-menu .user-information-all .user-logout a {
+	color: #fff;
+	display: block;
+	padding: 10px 20px;
+	text-align: center;
+}
